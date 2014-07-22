@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/mmjs-starter-1.0.1.min.js"></script>
+<link rel="stylesheet" href="css/mmjs-starter.min.css" type="text/css" />
+<title>Magneticmediajs starter edition example</title>
+</head>
+<body>
+	<div id="imageToDisplay" style="cursor:pointer;">Check This View</div>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#imageToDisplay').magneticmediajs({
+			color1:'0a0a0a',
+			color2:'f5f5f5',
+		 	displayTitle:true,
+		 	borderWidth:15,//0-20
+		 	borderRadius:10,//0-20
+			background:'000000',
+			backgroundOpacity:0.8,
+			manageViewport: true,
+		 	data:[
+		 		['image','images/london1.jpg','Big Ben - London - United Kingdom'],
+		 	],
+		});
+	});
+	</script>
+</body>
+</html>
