@@ -7,17 +7,17 @@ We also offer a pro and unlimited editions with many added features.
 
 Main site with product description
 ----------------------------------
-www.magneticmediajs.com
+http://www.magneticmediajs.com
 
 Documentation
 -------------
-www.magneticmediajs.com/docs.html
+http://www.magneticmediajs.com/docs.html
 
 
 
 ----------------------------------
 We hope you enjoy magneticmediajs! 
 
-Feel free to get in touch at www.magneticmediajs.com/support.html
+Feel free to get in touch at http://www.magneticmediajs.com/support.html
 
 
