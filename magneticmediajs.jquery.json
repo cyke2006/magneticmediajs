@@ -1,0 +1,42 @@
+{
+"name": "magneticmediajs",
+"title": "Magneticmediajs jQuery: display your media content with style",
+"description": "Magneticmediajs is a jQuery based library that allows media content (images, videos, maps, HTML &amp; more) to be displayed efficiently and with style",
+"keywords": [
+"lightbox",
+"modal",
+"media",
+"maps",
+"video",
+"photo",
+"image",
+"HTML",
+"overlay",
+"display"
+],
+"version": "1.0.2",
+"author": {
+"name": "Arnaud Leyder",
+"email": "arnaud@leyder-consulting.com",
+"url": "https://www.leyder-consulting.com/"
+},
+"maintainers": [
+{
+"name": "Arnaud Leyder",
+"email": "arnaud@leyder-consulting.com",
+"url": "https://www.leyder-consulting.com/"
+}
+],
+"licenses": [
+{
+"type": "GPLv3",
+"url": "https://github.com/arnaudleyder/magneticmediajs/blob/master/gpl.odt"
+}
+],
+"bugs": "https://github.com/arnaudleyder/magneticmediajs/issues",
+"homepage": "http://www.magneticmediajs.com/",
+"docs": "http://www.magneticmediajs.com/docs.html",
+"dependencies": {
+"jquery": ">=1.10.2"
+}
+}
