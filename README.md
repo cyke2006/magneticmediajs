@@ -1,23 +1,16 @@
 Magneticmediajs
 ===============
-Magneticmediajs is a jQuery based library that allows media content to be displayed efficiently and with style.
+Magneticmediajs is a JavaScript jQuery based library to display media content (images, videos, maps, HTML &amp; more) in a stylish overlay fashion (a.k.a. modals). It was built to run on most modern devices from mobile phones to TVs.
 The starter edition is an open source project under GPL v3 License.
 
-We also offer pro and unlimited editions with many added features.
-
-Main site with product description
-----------------------------------
-http://www.magneticmediajs.com
+Pro and Developer editions are available with many added features, like taking content from Youtube, Instagram, a documented API, media gallery layouts, a magnifying glass and more. Please visit https://www.magneticmediajs.com for more information 
 
 Documentation
 -------------
-http://www.magneticmediajs.com/docs.html
-
-
+https://www.magneticmediajs.com/documentation.html
 
 ----------------------------------
-We hope you enjoy magneticmediajs! 
+We hope you enjoy Magneticmediajs! 
 
-Feel free to get in touch at http://www.magneticmediajs.com/support.html
 
 
