@@ -1,7 +1,7 @@
 {
 "name": "magneticmediajs",
 "title": "Magneticmediajs",
-"description": "Magneticmediajs is a library that allows media content (images, videos, maps, HTML &amp; more) to be displayed efficiently and with style",
+"description": "Magneticmediajs is a JavaScript jQuery based library to display media content (images, videos, maps, HTML &amp; more) in a stylish overlay fashion (a.k.a. modals)",
 "keywords": [
 "lightbox",
 "modal",
@@ -14,7 +14,7 @@
 "overlay",
 "display"
 ],
-"version": "1.0.3",
+"version": "1.1.0",
 "author": {
 "name": "Arnaud Leyder",
 "email": "arnaud@leyder-consulting.com",
@@ -34,8 +34,8 @@
 }
 ],
 "bugs": "https://github.com/arnaudleyder/magneticmediajs/issues",
-"homepage": "http://www.magneticmediajs.com/",
-"docs": "http://www.magneticmediajs.com/docs.html",
+"homepage": "https://www.magneticmediajs.com/",
+"docs": "https://www.magneticmediajs.com/documentation.html",
 "dependencies": {
 "jquery": ">=1.10.2"
 }

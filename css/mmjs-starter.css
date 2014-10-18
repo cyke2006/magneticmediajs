@@ -1,28 +1,20 @@
-/* 
-Copyright (C) 2014 Arnaud Leyder 
+/*
+Copyright (C) 2014 Arnaud Leyder at Leyder Consulting
 
-This file is part of Magneticmediajs starter edition - v 1.0.2
+This file is part of Magneticmediajs starter edition v1.1.0
 
-Magneticmediajs library starter edition is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+Magneticmediajs starter edition is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-Magneticmediajs library starter edition is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Magneticmediajs library starter edition is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Magneticmediajs library starter edition.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with Magneticmediajs library starter edition. If not, see http://www.gnu.org/licenses/.
 
-For contact information please visit <http://www.magneticmediajs.com/support.html>
+For contact information please visit https://www.magneticmediajs.com/
 */
 
 /*** general CSS layout ***/
-
 @charset "utf-8";
-
 /* suggested html and body CSS settings for best results - include as you see fit */
 html,body {
 	margin:0;
@@ -36,7 +28,6 @@ body{
 	overflow: hidden;
     overflow-y: auto;
 }
-
 /* required CSS */
 .mmFullScreen{
 	position:fixed;
@@ -45,6 +36,7 @@ body{
 	z-index:5000;
 	background:rgba(0,0,0,0.7);
 	font-size:2.1em;
+	box-sizing:content-box;
 }
 .mmHtmlWrapper{
 	overflow:hidden;
@@ -68,6 +60,7 @@ body{
 	-moz-box-shadow: 0px 0px 10px 1px #000;
 	-webkit-box-shadow: 0px 0px 10px 1px #000;
     box-shadow: 0px 0px 10px 1px #000;
+	box-sizing:content-box;
 }
 #mmImgFull{
 	width:100%;
@@ -81,6 +74,17 @@ body{
 	cursor:pointer;
 	z-index:5001;
 	font-size:1em;
+}
+.mmGeneric{
+	padding:6px 6px 0 0 !important;
+	display:inline-block;
+	position:relative;
+	}
+.mmGeneric img{
+	cursor:pointer;
+}
+.mmVideoPlayer{
+	position:relative;
 }
 .mmTitleArea{
 	position:relative;
@@ -103,26 +107,33 @@ body{
 	 -ms-transform: translate(-50%, 0%);
 	transform: translate(-50%, 0%);
 }
+#mmErrorWrapper{
+	width:300px;
+}
+#mmError{
+	padding:10px;
+	width:280px;
+	font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	text-align:center;
+}
 
 /* fonts and icons CSS layout */
 @font-face {
-  font-family:'mmjsfont';
-  src: url('font/mmjsfont.eot?91169352');
-  src: url('font/mmjsfont.eot?91169352#iefix') format('embedded-opentype'),
-	url('font/mmjsfont.woff?91169352') format('woff'),
-	url('font/mmjsfont.ttf?91169352') format('truetype'),
-	url('font/mmjsfont.svg?91169352#mmjsfont') format('svg');
-  font-weight:normal;
-  font-style:normal;
- }
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  @font-face {
-    font-family:'mmjsfont';
-    src: url('font/mmjsfont.svg?91169352#mmjsfont') format('svg');
-  }
+	font-family:'mmjsfont';
+  	src: url('font/mmjsfont.eot?91169352');
+  	src: url('font/mmjsfont.eot?91169352#iefix') format('embedded-opentype'),
+		url('font/mmjsfont.woff?91169352') format('woff'),
+		url('font/mmjsfont.ttf?91169352') format('truetype'),
+		url('font/mmjsfont.svg?91169352#mmjsfont') format('svg');
+  	font-weight:normal;
+  	font-style:normal;
 }
-
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  	@font-face {
+    	font-family:'mmjsfont';
+   		src: url('font/mmjsfont.svg?91169352#mmjsfont') format('svg');
+  	}
+}
 [class^="icon-"]:before, [class*=" icon-"]:before {
 	font-family:'mmjsfont';
   	font-style: normal;
@@ -145,8 +156,9 @@ body{
 [class^="icon-"]:hover, [class*=" icon-"]:hover{
 	opacity:0.8;
 }
-
-.icon-cancel:before { content: '\e810'; } 
+.icon-cancel:before{ 
+	content: '\e810';
+} 
 
 /* loading bar */
 #mmParentSpin{
@@ -165,6 +177,7 @@ body{
 	-moz-box-shadow: 0px 0px 3px 1px #000;
 	-webkit-box-shadow: 0px 0px 3px 1px #000;
 	box-shadow: 0px 0px 3px 1px #000;
+	box-sizing:content-box;
 }
 .mmWaitCircle{
 	border-radius: 50%;
@@ -183,6 +196,13 @@ body{
 }
 #mmWaitCircle3{
 	margin-left:54px;
+}
+.animate-spin {
+  -moz-animation: spin 1.5s infinite linear;
+  -o-animation: spin 1.5s infinite linear;
+  -webkit-animation: spin 1.5s infinite linear;
+  animation: spin 1.5s infinite linear;
+  display: inline-block;
 }
 
 /*media queries*/
@@ -208,7 +228,6 @@ body{
 	.mmClose{
 		right:-1.6em;
 	}
-
 }
 
 @media (min-width : 1024px) {

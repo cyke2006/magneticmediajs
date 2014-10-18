@@ -2,29 +2,53 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/mmjs-starter-1.0.2.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/mmjs-starter.css"  />
 <title>Magneticmediajs starter edition example</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- inlcude Magneticmediajs CSS file -->
+<link rel="stylesheet" type="text/css" href="css/mmjs-starter.css"  />
+<!-- inlcude jQuery -->
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- inlcude swfobject for flash fallback (if wanted) -->
+<script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<!-- inlcude Magneticmediajs JavaScript file  -->
+<script src="js/mmjs-starter-1.1.0.min.js"></script>
 </head>
 <body>
-	<span id="imageToDisplay" style="cursor:pointer;">Check This View</span>
+	<!-- HTML markup -->
+	<div id="imageToDisplay" style="cursor:pointer;">Check This View</div><br />
+    <div id="videoToDisplay" style="cursor:pointer;">Check This Video</div>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		// Fire magneticmediajs jQuery plugin
 		$('#imageToDisplay').magneticmediajs({
 			/* Options for displaying a single image item with magneticmediajs starter edition  */
 			/* Layout options */
 			color1:'080808', // color of the border when an item is shown
-			color2:'f7f7f7', // color of the font and icons when an item is shown
+			color2:'fdfdfd', // color of the font and icons when an item is shown
 		 	borderWidth:8, // width of the border when an item is shown - Acceptable values range from 0 (no border) to 20 (thick border)
 		 	borderRadius:8, // border radius of the rounded border when an item is shown - Acceptable values range from 0 (square border) to 20 (round border)
-			background:'080808', // background color for the surronding when an item is shown
+			background:'000000', // background color for the surronding when an item is shown
 			backgroundOpacity:0.7,  // background opacity for the surronding when an item is shown
 			displayTitle:true, // display a title for the item shown at the bottom of the screen
 		 	/* Data to be displayed */
 			data:[
 		 		['image','images/london1.jpg','Big Ben - London - United Kingdom'], // content type (image) - URL or path to main image - title for image (displayTitle)
+		 	],
+		});
+		$('#videoToDisplay').magneticmediajs({
+			/* Options for displaying an HTML5 mp4 video with a flash fallback  */
+			/* Layout options */
+			color1:'080808',
+			color2:'fdfdfd', 
+		 	borderWidth:8,
+		 	borderRadius:8, 
+			background:'000000',
+			backgroundOpacity:0.7, 
+			videoWidth:960, // maximum width of the video player. The video player will scale based on available viewport up to this value
+			videoHeight:400, // maximum height of the video player. The video player will scale based on available viewport up to this value
+		 	/* Data to be displayed */
+			data:[
+		 		['video','http://www.magneticmediajs.com/videos/tears_of_steel.mp4'], // content type (video) - URL or path to mp4
 		 	],
 		});
 	});
