@@ -1,7 +1,7 @@
 /*
 Copyright (C) 2014 Arnaud Leyder at Leyder Consulting
 
-This file is part of Magneticmediajs starter edition v1.1.0
+This file is part of Magneticmediajs starter edition v1.1.1
 
 Magneticmediajs starter edition is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -165,7 +165,7 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 			clearTimeout(mmTimerSpin);
 			clearInterval(mmTimerSpin2);
 			clearInterval(mmTimerSpin3);
-			$('#mmParentSpin').hide();
+			$('.mmParentSpin').hide();
 			adjustRoundBorder(tempBorderWidth,tempBorderRadius);
 		});
 		$(newImage).on('error',function(){
@@ -193,7 +193,7 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 		else{
 			var startingBitratePathF = src;
 			var posterF = poster;
-			if(startingBitratePathF.substring(0, 5) !== 'http:'){
+			if(startingBitratePathF.substring(0, 5) !== 'http:' && startingBitratePathF.substring(0, 5) !== 'https:'){
 				startingBitratePathF = '../'+startingBitratePathF;
 			}
 			if (swfobject.hasFlashPlayerVersion("10")){
@@ -217,7 +217,7 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 		clearTimeout(mmTimerSpin);
 		clearInterval(mmTimerSpin2);
 		clearInterval(mmTimerSpin3);
-		$('#mmParentSpin').hide();
+		$('.mmParentSpin').hide();
 		adjustRoundBorder(tempBorderWidth,tempBorderRadius);
 	}
 	
@@ -250,7 +250,7 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 			var c2 = color2;
 		}
 		$('.mmFSWrapper').css({'border':borderWidth+'px solid #'+color1,'border-radius':borderRadius+'px'});
-		$('.mmTitleArea').css({'color':'#'+c2,'background':'#'+c1,'border-radius':Math.round(borderRadius)+'px'});
+		$('.mmTitleArea').css({'color':'#'+c2,'background':'#'+c1,'border-radius':Math.round(borderRadius/2)+'px'});
 		$('.mmClose').css({'color':'#'+color2});
 	}
 	
@@ -265,7 +265,7 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 			var c2 = color2;
 		}
 		$('.mmWaitCircle').css({'background':'#'+c1});
-		$('#mmParentSpin').css({'border':'2px solid #'+c1,'background':'#'+c2});
+		$('.mmParentSpin').css({'border':'2px solid #'+c1,'background':'#'+c2});
 	}
 		
 	//function for keyboard interaction
@@ -325,9 +325,9 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 	
 	//function to animate loading bar off
 	function mmAnimateOff(){
-		$('#mmWaitCircle1').animate({ opacity: 0 },400, function() {
-			$('#mmWaitCircle2').animate({ opacity: 0 },400, function() {
-				$('#mmWaitCircle3').animate({ opacity: 0 },400, function() {
+		$('.mmWaitCircle1').animate({ opacity: 0 },400, function() {
+			$('.mmWaitCircle2').animate({ opacity: 0 },400, function() {
+				$('.mmWaitCircle3').animate({ opacity: 0 },400, function() {
 				});
 			});
 		});
@@ -335,9 +335,9 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 	
 	//function to animate loading bar on
 	function mmAnimateOn(){
-		$('#mmWaitCircle1').animate({ opacity: 1 },400, function() {
-			$('#mmWaitCircle2').animate({ opacity: 1 },400, function() {
-				$('#mmWaitCircle3').animate({ opacity: 1 },400, function() {
+		$('.mmWaitCircle1').animate({ opacity: 1 },400, function() {
+			$('.mmWaitCircle2').animate({ opacity: 1 },400, function() {
+				$('.mmWaitCircle3').animate({ opacity: 1 },400, function() {
 				});
 			});
 		});
@@ -393,31 +393,32 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 		var tempSelector = $(this);
 		var tempSelectorID = 'mm'+$(this).attr('id');
 		var indexOne = 0;
-		var touchendOnce = true;
 		
 		//append loading bar while loading content
-		$('body').append('<div id="mmParentSpin"><div class="mmWaitCircle" id="mmWaitCircle1"></div><div class="mmWaitCircle" id="mmWaitCircle2"></div><div class="mmWaitCircle" id="mmWaitCircle3"></div></div>');
+		if(!$('body').has('.mmParentSpin').length){
+			$('body').append('<div class="mmParentSpin"><div class="mmWaitCircle mmWaitCircle1"></div><div class="mmWaitCircle mmWaitCircle2"></div><div class="mmWaitCircle mmWaitCircle3"></div></div>');
+		}
 		
 		//on touchend trigger click
 		tempSelector.on('touchend', function(event) {
-			if(touchendOnce){
-				touchendOnce = false;
-				event.stopPropagation();
-				event.preventDefault();
-				event.target.click();
-				setTimeout(function(){
-						touchendOnce = true;
-				},200);
+			if($('body').has('.mmFullScreen').length){
+				return;
 			}
+			event.stopPropagation();
+			event.preventDefault();
+			event.target.click();
 		});
 		
 		//display media content as an overlay element
 		tempSelector.on('click',function(event){
+			if($('body').has('.mmFullScreen').length){
+				return;
+			}
 			event.stopPropagation();
 			var mmTitle = '';
 			$('body').append('<div class="mmFullScreen"></div>');
 			mmTimerSpin = setTimeout(function(){
-				$('#mmParentSpin').show();
+				$('.mmParentSpin').show();
 				mmAnimateOff();
 				mmAnimateOn();
 				mmTimerSpin2 = setInterval(function(){
