@@ -1,7 +1,7 @@
 /*
 Copyright (C) 2014 Arnaud Leyder at Leyder Consulting
 
-This file is part of Magneticmediajs starter edition v1.1.1
+This file is part of Magneticmediajs starter edition v1.1.2
 
 Magneticmediajs starter edition is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -16,6 +16,8 @@ For contact information please visit https://www.magneticmediajs.com/
 //global scope variable
 var mmItemOnStage = false;
 var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
+var mmBorderWidth = new Object();
+var mmBorderRadius = new Object();
 
 //jQuery when ready
 (function( $ ) {
@@ -394,6 +396,10 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 		var tempSelectorID = 'mm'+$(this).attr('id');
 		var indexOne = 0;
 		
+		// set borderWidth and borderRadius unique for each id on which magneticmediajs is fired
+		mmBorderWidth[tempSelectorID] = borderWidth;
+		mmBorderRadius[tempSelectorID] = borderRadius;
+		
 		//append loading bar while loading content
 		if(!$('body').has('.mmParentSpin').length){
 			$('body').append('<div class="mmParentSpin"><div class="mmWaitCircle mmWaitCircle1"></div><div class="mmWaitCircle mmWaitCircle2"></div><div class="mmWaitCircle mmWaitCircle3"></div></div>');
@@ -501,6 +507,9 @@ var mmTimerSpin, mmTimerSpin2, mmTimerSpin3;
 					var contentType = '';
 					var result = new Array();
 					var leftPosGallery = thisContainer.position().left;
+					var currentId = $('.mmFSWrapper').attr('id');
+					var borderWidth = mmBorderWidth[currentId];
+					var borderRadius = mmBorderRadius[currentId];
 					if(imageOnStage){
 						contentType = 'picture';
 						result = mmMakeItFit(width,height,newVoWidthViewport,newVoHeightViewport,borderWidth,borderRadius,contentType);
