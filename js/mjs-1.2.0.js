@@ -702,21 +702,18 @@ var Magneticmediajs = (function() {
             default: return;
             }
         }
-        
+            
     // Deeplinking
     var _mjsDirectAccess = function (elmentid, gallery) {
         var urlWithQuery = $(location).attr('search');
         urlWithQuery = urlWithQuery.substr(1).split('&');
         for (var k = 0; k < urlWithQuery.length; k++) {
-            if (urlWithQuery[k].split('=')[0] === 'magnetid') {
-                if (urlWithQuery[k].split('=')[1] === elmentid) {
-                    if (gallery) {
-                        $('#'+urlWithQuery[k].split('=')[1]+' > img').trigger('click');
-                    } else {
-                        var corretId = urlWithQuery[k].split('=')[1]
-                        corretId = corretId.replace(/^mjs/, "");
-                        $('#'+corretId).trigger('click');
-                    }
+            var splitter = urlWithQuery[k].split('=');
+            if (splitter[0] === 'magnetid') {
+                if (gallery && splitter[1] === elmentid) {
+                     $('img#mjsThumb'+splitter[1].substr(splitter[1].length - 1)).trigger('click');
+                } else if (!gallery && (elmentid.indexOf(splitter[1]) > 1 || elmentid === splitter[1])) {
+                    $('#'+splitter[1].replace('mjs', '')).trigger('click');
                 }
             }
         }
@@ -1221,23 +1218,23 @@ var Magneticmediajs = (function() {
             
             // add twitter and facebook sharing buttons
             if (sharing) {
-                $(document).on('touchstart', '.mjs-facebook', function(event) {
+                $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-facebook', function(event) {
                     event.stopPropagation();
                     event.preventDefault();
                     event.target.click();
                 });
-                $(document).on('click', '.mjs-facebook', function() {
+                $(document).on('click', '#'+tempSelectorID+' > .mjs-facebook', function() {
                     var currentUrl = window.location.origin+window.location.pathname;
                     currentUrl = currentUrl+'?magnetid='+$('.mjs-fs-wrapper').attr('id');
                     var url = mjsGlobal['locationProtocol']+'//www.facebook.com/dialog/share?app_id='+facebookID+'&display=popup&href='+encodeURIComponent(currentUrl)+'&redirect_uri='+(currentUrl);
                     window.open(url, '_blank');
                 });
-                $(document).on('touchstart', '.mjs-twitter', function(event) {
+                $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-twitter', function(event) {
                     event.stopPropagation();
                     event.preventDefault();
                     event.target.click();
                 });
-                $(document).on('click', '.mjs-twitter', function() {
+                $(document).on('click', '#'+tempSelectorID+' .mjs-twitter', function() {
                     var currentUrl = window.location.origin+window.location.pathname;
                     currentUrl = currentUrl+'?magnetid='+$('.mjs-fs-wrapper').attr('id');
                     var url = mjsGlobal['locationProtocol']+'//twitter.com/share?url='+encodeURIComponent(currentUrl);
@@ -1416,5 +1413,5 @@ var Magneticmediajs = (function() {
     }
     
     return Magneticmediajs;
-    
+        
 })();
