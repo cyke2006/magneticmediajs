@@ -758,7 +758,7 @@ var Magneticmediajs = (function() {
                 }
                 settings[properties] = inputSettings[properties];
             }
-        }
+        }    
         // get data array
         var data = this.data;
         // check values are strings return otherwise
@@ -942,13 +942,13 @@ var Magneticmediajs = (function() {
                     if ($('body').has('.mjs-fullscreen').length) {
                         return;
                     }
-                    $(document).off('touchmove', rmpCheckTouchMouve);
+                    $(document).off('touchmove', _mjsCheckTouchMouve);
                     mjsGlobal['hasTouchMove'] = false;
                     mjsGlobal['startX'] = event.originalEvent.touches[0].clientX;
                     mjsGlobal['startY'] = event.originalEvent.touches[0].clientY;
-                    $(document).on('touchmove', rmpCheckTouchMouve);
+                    $(document).on('touchmove', _mjsCheckTouchMouve);
                     $(this).on('touchend', function doTouchEnd(event){
-                        $(document).off('touchmove', rmpCheckTouchMouve);
+                        $(document).off('touchmove', _mjsCheckTouchMouve);
                         if (!mjsGlobal['hasTouchMove']) {
                             event.stopPropagation();
                             event.preventDefault();
@@ -1172,15 +1172,15 @@ var Magneticmediajs = (function() {
                             if (typeof target[0].src !== 'undefined' && (target[0].src.indexOf('maps.gstatic.com') > -1)) {
                                 return;
                             } 
-                            $(document).off('touchmove', rmpCheckTouchMouve);
+                            $(document).off('touchmove', _mjsCheckTouchMouve);
                             mjsGlobal['hasSwipe'] = false;
                             mjsGlobal['hasSwipeLeft'] = false;
                             mjsGlobal['hasSwipeRight'] = false;
                             mjsGlobal['startX'] = event.originalEvent.touches[0].clientX;
                             mjsGlobal['startY'] = event.originalEvent.touches[0].clientY;
-                            $(document).on('touchmove', rmpCheckSwipe);
+                            $(document).on('touchmove', _mjsCheckSwipe);
                             $(this).on('touchend',function doTouchEnd2(event){
-                                $(document).off('touchmove',rmpCheckSwipe);
+                                $(document).off('touchmove',_mjsCheckSwipe);
                                 if (!mjsGlobal['hasSwipe']) {
                                     event.target.click();
                                 } else {
@@ -1214,33 +1214,34 @@ var Magneticmediajs = (function() {
                     });    
                 });
                 _mjsDirectAccess(tempSelectorID, gallery); 
+                
+                // add twitter and facebook sharing buttons
+                if (sharing) {
+                    $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-facebook', function(event) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        event.target.click();
+                    });
+                    $(document).on('click', '#'+tempSelectorID+' > .mjs-facebook', function() {
+                        var currentUrl = window.location.origin+window.location.pathname;
+                        currentUrl = currentUrl+'?magnetid='+$('.mjs-fs-wrapper').attr('id');
+                        var url = mjsGlobal['locationProtocol']+'//www.facebook.com/dialog/share?app_id='+facebookID+'&display=popup&href='+encodeURIComponent(currentUrl)+'&redirect_uri='+(currentUrl);
+                        window.open(url, '_blank');
+                    });
+                    $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-twitter', function(event) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        event.target.click();
+                    });
+                    $(document).on('click', '#'+tempSelectorID+' .mjs-twitter', function() {
+                        var currentUrl = window.location.origin+window.location.pathname;
+                        currentUrl = currentUrl+'?magnetid='+$('.mjs-fs-wrapper').attr('id');
+                        var url = mjsGlobal['locationProtocol']+'//twitter.com/share?url='+encodeURIComponent(currentUrl);
+                        window.open(url,'_blank');
+                    });
+                }
             }
-            
-            // add twitter and facebook sharing buttons
-            if (sharing) {
-                $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-facebook', function(event) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    event.target.click();
-                });
-                $(document).on('click', '#'+tempSelectorID+' > .mjs-facebook', function() {
-                    var currentUrl = window.location.origin+window.location.pathname;
-                    currentUrl = currentUrl+'?magnetid='+$('.mjs-fs-wrapper').attr('id');
-                    var url = mjsGlobal['locationProtocol']+'//www.facebook.com/dialog/share?app_id='+facebookID+'&display=popup&href='+encodeURIComponent(currentUrl)+'&redirect_uri='+(currentUrl);
-                    window.open(url, '_blank');
-                });
-                $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-twitter', function(event) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    event.target.click();
-                });
-                $(document).on('click', '#'+tempSelectorID+' .mjs-twitter', function() {
-                    var currentUrl = window.location.origin+window.location.pathname;
-                    currentUrl = currentUrl+'?magnetid='+$('.mjs-fs-wrapper').attr('id');
-                    var url = mjsGlobal['locationProtocol']+'//twitter.com/share?url='+encodeURIComponent(currentUrl);
-                    window.open(url,'_blank');
-                });
-            }
+
             
             // render gallery when all content is loaded
             if (gallery) {
