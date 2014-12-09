@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Magneticmediajs - e-commerce media gallery layout</title>
+<!-- inlcude Magneticmediajs CSS file -->
+<link rel="stylesheet" href="css/mjs-1.2.0.min.css" type="text/css" />
+</head>
+<body>
+
+	<div class="mjs-ecommerce-media-queries" style="position:relative;top:10px;left:10px;cursor:pointer;font:Verdana, sans-serif;font-size:1.2em;">
+    	<div id="ecommerce"></div>
+	</div>
+    
+    <!-- We put our scripts just before the closing body tag for fatser page load perceived -->
+    <!-- Inlcude jQuery, CDN loading: //code.jquery.com/jquery-1.10.2.min.js -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+    <!-- Inlcude swfobject for flash fallback (if wanted), CDN loading: //ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js -->
+    <script src="js/swfobject.js"></script>
+    <!-- Inlcude Magneticmediajs JavaScript file  -->
+    <script src="js/mjs-1.2.0.min.js"></script>
+	<script>
+	// Wait for document to be ready with jQuery -- This is not strictly necessary here because our scripts are just before the closing body tag. However because other implementations could require this we are leaving it for reference.
+	$(document).ready(function() {
+		
+		// Layout setting for our e-commerce media gallery
+		var mjsSettingsEcommmerce = {
+			color1:'080808', // color of the border when an item is shown
+			color2:'FFFFFF', // color of the font and icons when an item is shown
+			borderWidth:4, // width of the border when an item is shown - Acceptable values range from 0 (no border) to 20 (thick border)
+			borderRadius:4, // border radius of the rounded border when an item is shown - Acceptable values range from 0 (square border) to 20 (round border)
+			background:'080808', // background color for the surronding when an item is shown
+			backgroundOpacity:0.7, // background opacity for the surronding when an item is shown
+			displayTitle:true, // display a title for the item shown at the bottom of the screen
+			videoWidth:960, // Maximum width of the video player
+			videoHeight:540, // Maximum height of the video player
+			autoPlayVideo:false, // Autoplay video when an item is shown. Will not work on mobile due to Android and iOS restrictions on the matter
+			showIcons:true, // show icons on thumbnails within the gallery for maps and video content
+			ecommerce:true, // display a gallery with a e-commerce layout
+			onMjsMediaOnStage: function(){console.log('onMjsMediaOnStage')}, // callback when a media item has completed opening
+			onMjsMediaOffStage: function(){console.log('onMjsMediaOffStage')} // callback when a media item has competed closing
+		};
+		
+		// Data to be displayed within the media gallery
+		var mjsDataEcommerce = [
+		 	['image','images/ecommerce/eos-4.jpg','images/ecommerce/eos-4.jpg','Canon EOS 5D Mark II'],
+			['image','images/ecommerce/eos-8.jpg','images/ecommerce/eos-8.jpg','21.1-megapixel full-frame CMOS digital single-lens reflex camera'],
+		 	['youtube','keMTRAF3BV8','medium','Video review for Canon EOS 5D Mark II'],
+			['image','images/ecommerce/eos-3.jpg','images/ecommerce/eos-3.jpg','Live preview with contrast-detect autofocus'],
+		 	['image','images/ecommerce/eos-2.jpg','images/ecommerce/eos-2.jpg','Movie recording full HD at 1920 × 1080'],
+			['image','images/ecommerce/eos-6.jpg','images/ecommerce/eos-6.jpg','Canon EF lens mount'],
+			['maps','images/map.jpg','AIzaSyBUoQMtQL-nT1t2DyY-vLWf4j3oIh850Zw', 43.526112, 5.440660, 7, 'This is a great place', '<div>An amazing place to be in summer and winter is very cool as well. Meet us there!</div>'],
+			// more examples
+			// ['dailymotion','x1yj6t9','medium','A video from Dailymotion'],
+			// ['vimeo', '44964114','medium', 'A video from Vimeo'],
+			// ['flickr', '124135045@N03', 'london1'],
+			// ['instagram', 'q1vsU0OmxC', 'q1vsU0OmxC']
+		];
+		
+		// Instantiate
+		var mjsEcommerce = new Magneticmediajs('#ecommerce', mjsSettingsEcommmerce, mjsDataEcommerce);
+		
+		// Initiate
+		mjsEcommerce.init();
+		
+	});
+    </script>
+</body>
+</html>

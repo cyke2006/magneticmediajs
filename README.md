@@ -1,16 +1,30 @@
 Magneticmediajs
 ===============
-Magneticmediajs is a JavaScript jQuery based library to display media content (images, videos, maps, HTML &amp; more) in a stylish overlay fashion (a.k.a. modals). It was built to run on most modern devices from mobile phones to TVs.
-The starter edition is an open source project under GPL v3 License.
+Magneticmediajs is a a JavaScript solution to display media content from around the web. It also lets you ingest content from today's most popular media platform: Youtube, Instagram, Vimeo, Flickr, Dailymotion.
 
-Pro and Developer editions are available with many added features, like taking content from Youtube, Instagram, a documented API, media gallery layouts, a magnifying glass and more. Please visit https://www.magneticmediajs.com for more information 
+Magneticmediajs is built with JavaScript prototype pseudo class system, jQuery for DOM manipulation, CSS3 with graceful fallback. It comes with a documented API to control your media and provides callback capabilities. 
+Magneticmediajs completely embraces the mobile experience: it supports various touch events, including swipes between media items, and scales well from mobile devices (iOS, Android ...) to large computer screens.
+
+Magneticmediajs comes with a custom license, in a nutshell:
+- You are free to use Magneticmediajs for non-commercial use given the copyright notice present in each file part of Magneticmediajs is included in all copies or substantial portions of the software and associated files. Source code can be checked out on GitHub.
+- To use Magneticmediajs for commercial purposes you need to purchase one of the licenses here: https://www.magneticmediajs.com/#licensing
+
+Presentation site
+-------------
+https://www.magneticmediajs.com
+
+License information
 
 Documentation
 -------------
 https://www.magneticmediajs.com/documentation.html
 
+License information
+-------------
+https://www.magneticmediajs.com/terms-of-service.html
+
 ----------------------------------
-We hope you enjoy Magneticmediajs! 
+Enjoy Magneticmediajs! 
 
 
 
