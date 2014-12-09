@@ -472,7 +472,7 @@ var Magneticmediajs = (function() {
     };
     
     // function to get Flickr content    
-    var _mjsGetFlickrStream = function (user_id, title, elements, i, type, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2, borderWidth, borderRadius, multiple) {
+    var _mjsGetFlickrStream = function (user_id, title, i, type, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2, borderWidth, borderRadius, multiple) {
         var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3b109ff5810e4d81b73292507ca19928&text='+title+'&safe_search=1&per_page=10&user_id='+user_id;
         var src, srcThumb;
         $.ajax({
@@ -487,7 +487,6 @@ var Magneticmediajs = (function() {
                         $('#mjsThumb'+i).prop('src',srcThumb);
                     } else {
                         src = mjsGlobal['locationProtocol']+"//farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_b.jpg";
-                        $('#mjsThumb'+i).prop('src',src);
                         _mjsLoadImage(src,zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
                     }
                 });
@@ -905,7 +904,7 @@ var Magneticmediajs = (function() {
                         _getDMThumbnail(data[j][1], data[j][2], j);    
                     } else {
                         if (data[j][0] === 'flickr') {
-                            _mjsGetFlickrStream(data[j][1], data[j][2], '', j, 'thumbnail', '', '', '', '', '', '', '', '', '', '');
+                            _mjsGetFlickrStream(data[j][1], data[j][2], j, 'thumbnail', '', '', '', '', '', '', '', '', '', '');
                         } else if(data[j][0] === 'instagram') {
                             $('#mjsThumb'+j).prop('src', mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[j][1]+'/media/?size=m');
                         } else {
@@ -1011,7 +1010,7 @@ var Magneticmediajs = (function() {
                     }
                     // current content in the data array is flickr content
                     else if (data[imageOnNumber][0] === 'flickr') {
-                        _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2],'',imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                        _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
                     }
                     // current content in the data array is instagram content
                     else if (data[imageOnNumber][0] === 'instagram') {
@@ -1077,7 +1076,7 @@ var Magneticmediajs = (function() {
                                 jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2],'',imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
                                 });
                             } else if (data[imageOnNumber][0] === 'image') {
                                 jToRemove.fadeOut(200,function(){
@@ -1142,7 +1141,7 @@ var Magneticmediajs = (function() {
                                 jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2],'',imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber, 'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
                                 });
                             } else if (data[imageOnNumber][0] === 'image') {
                                 jToRemove.fadeOut(200, function() {
