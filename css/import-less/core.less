@@ -1,0 +1,206 @@
+/* html and body tag (modify as you see fit) */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  .text-size-adjust();
+}
+body {
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/*  Fix for Chrome blue outline on element focus */
+*:focus {
+  outline: 0;
+}
+
+/* required CSS */
+.mjs-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 2.1em;
+  box-sizing: content-box; 
+}
+.mjs-fs-wrapper {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  display: none;
+  box-sizing: content-box;
+  .transform-translate();
+  .box-shadow(0px 0px 8px 1px @dark);
+}
+.mjs-fs-wrapper > video {
+  box-sizing: content-box;
+}
+#mjs-img-full {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.mjs-icons {
+  position: absolute;
+  cursor: pointer;
+  z-index: 5001;
+}
+.mjs-close {
+  top: -0.4em;
+  right: -1.45em;
+  font-size: 1em;
+}
+.mjs-facebook {
+  top: -0.3em;
+  left: -1.55em;
+  font-size: 0.7em;
+}
+.mjs-twitter {
+  top: 0.7em;
+  left: -1.55em;
+  font-size: 0.7em;
+}
+#mjs-zoom-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;    
+  border: 1px solid #EEE;
+  background-image: url("");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  cursor: pointer;    
+}
+.mjs-video-player {
+  position: relative;
+}
+.mjs-title-area {
+  position: relative;
+  top: -12px;
+  left: 50%;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+  font-size: 0.24em;
+  text-align: center;
+  background: #000;
+  color: #EEE;
+  padding: 2px 10px;
+  white-space: nowrap;
+  display: inline-block;
+  .box-shadow(0px 0px 8px 1px @dark);
+  .transform-translate(-50%, 0%);
+}
+.map-area {
+  width: 100%;
+  height: 100%;
+}
+
+/* media gallery (applies to ecommerce gallery as well) */
+.mjs-generic {
+  position: relative;
+  margin: 2px;
+  display: inline-block;
+  overflow: hidden;
+  background: #000;
+}
+.mjs-generic img {
+  display: block;
+  .transition();
+  box-sizing: content-box;
+  cursor: pointer;
+  opacity: 1;
+}
+.mjs-generic img:hover {
+  opacity: 0.9;
+  .transform-scale();
+}
+.mjs-row-gallery {
+  width: 95%;
+  margin-left: 2.5%;
+  padding-bottom: 6px;
+  text-align: center;
+}
+.mjs-previous {
+  position: absolute;
+  top:50%;
+  left: -1.45em;
+  font-size: 1em;
+  cursor: pointer;
+  z-index: 5001;
+  .transform-translateY();
+}
+.mjs-next {
+  position: absolute;
+  top: 50%;
+  right: -1.45em;
+  font-size: 1em;
+  cursor: pointer;
+  z-index: 5001;
+  .transform-translateY();
+}
+.mjs-video-play-gallery {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 30px;
+  cursor: pointer;
+  .transform-translateY();
+}
+
+/* ecommerce gallery only */
+.mjs-ecommerce-media-queries {
+  position: relative;
+  width: 250px;
+  margin: auto;
+}
+.mjs-ecommerce-gallery {
+  position: relative;
+  width: 100%;
+  box-sizing: content-box;
+}
+.mjs-ecommerce-gallery img {
+  display: block;
+}
+#mjs-ecommerce-col {
+  position: absolute;
+  top: 0;
+  left: 1%;
+  width: 14%;
+  box-sizing: content-box;
+} 
+.mjs-ecommerce-col-img {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2px;
+} 
+.mjs-ecommerce-col-img > img {
+  width: inherit;
+}
+.mjs-ecommerce-main {
+  position: absolute;
+  top: 0;
+  left: 19%;
+  width: 80%;
+  box-sizing: content-box;
+}
+.mjs-ecommerce-main .mjs-video-play-gallery {
+  font-size: 26px;
+}
+#mjs-ecommerce-col .mjs-video-play-gallery {
+  font-size: 15px;
+}
+.mjs-ecommerce-main-adjust {
+  top: 50%;
+  .transform-translateY();
+}
+.mjs-ecommerce-main > img {
+  width: 100%;
+  max-height: none !important;
+}
+.mjs-ecommerce-gallery .mjs-generic {
+  margin: 0;
+}

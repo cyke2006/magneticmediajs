@@ -1,0 +1,60 @@
+/* mixins */
+.text-size-adjust() {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+.transform-translate(@pcX: -50%; @pcY: -50%) {
+  -webkit-transform: translate(@pcX, @pcY);
+     -moz-transform: translate(@pcX, @pcY);
+      -ms-transform: translate(@pcX, @pcY);
+       -o-transform: translate(@pcX, @pcY);
+          transform: translate(@pcX, @pcY);
+}
+.transform-translateY(@pcY: -50%) {
+  -webkit-transform: translateY(@pcY);
+     -moz-transform: translateY(@pcY);
+      -ms-transform: translateY(@pcY);
+       -o-transform: translateY(@pcY);
+          transform: translateY(@pcY);
+}
+.transform-rotate(@angle: 0deg) {
+  -webkit-transform: rotate(@angle);
+     -moz-transform: rotate(@angle);
+      -ms-transform: rotate(@angle);
+       -o-transform: rotate(@angle);
+          transform: rotate(@angle);
+}
+.transform-scale(@number: 1.07) {
+  -webkit-transform: scale(@number);
+     -moz-transform: scale(@number);
+      -ms-transform: scale(@number);
+       -o-transform: scale(@number);
+          transform: scale(@number);
+}
+.box-shadow(@string: none) {
+  -webkit-box-shadow: @string;
+     -moz-box-shadow: @string;
+          box-shadow: @string;
+}
+.transition(@string: all .3s ease-in-out) {
+  -webkit-transition: @string;
+     -moz-transition: @string;
+      -ms-transition: @string;
+       -o-transition: @string;
+          transition: @string;
+}
+.border-radius(@radius: 4px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+.animation(@string: spin 2s infinite linear) {
+  -webkit-animation: @string;
+     -moz-animation: @string;
+      -ms-animation: @string;
+       -o-animation: @string;
+          animation: @string;
+}

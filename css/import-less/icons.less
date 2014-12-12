@@ -1,0 +1,155 @@
+/* fonts and icons CSS layout */
+@font-face {
+  font-family:'mjsfont';
+  src: url('font/mjsfont.eot?53563043');
+  src: url('font/mjsfont.eot?53563043#iefix') format('embedded-opentype'),
+       url('font/mjsfont.woff?53563043') format('woff'),
+       url('font/mjsfont.ttf?53563043') format('truetype'),
+       url('font/mjsfont.svg?53563043#mjsfont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'mjsfont';
+    src: url('font/mjsfont.svg?53563043#mjsfont') format('svg');
+  }
+}
+[class^="mjs-i-"]:before, [class*=" mjs-i-"]:before, [class^="mjs-s-"]:before, [class*=" mjs-s-"]:before {
+  width: 1em;
+  margin-left: .2em;
+  margin-right: .2em;
+  display: inline-block;
+  font-family: 'mjsfont';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-decoration: inherit;
+  text-align: center;
+  text-transform: none;
+  line-height: 1em;
+  speak: none;
+}
+[class^="mjs-i"], [class*=" mjs-i"] {
+  text-shadow: none;
+  opacity: 1;
+}
+[class^="mjs-i"]:hover, [class*=" mjs-i"]:hover{
+  opacity:0.8;
+}
+.mjs-i-facebook-squared:before { 
+  content: '\e800'; 
+}
+.mjs-i-twitter-squared:before { 
+  content: '\e801'; 
+}
+.mjs-i-left-open:before { 
+  content: '\e802'; 
+}
+.mjs-i-right-open:before { 
+  content: '\e804'; 
+}
+.mjs-i-angle-circled-left:before { 
+  content: '\e803'; 
+}
+.mjs-i-angle-circled-right:before { 
+  content: '\e805'; 
+}
+.mjs-i-cancel:before { 
+  content: '\e806'; 
+}
+.mjs-i-cancel-circled:before { 
+  content: '\e807'; 
+}
+.mjs-s-spin:before { 
+  content: '\e808';
+  font-size: 25px;
+  color: inherit;
+}
+.mjs-i-sun:before { 
+  content: '\e809';
+} 
+.mjs-i-arrows-cw:before { 
+  content: '\e80a';
+} 
+.mjs-i-play-circled:before { 
+  content: '\e80b';
+} 
+.mjs-i-camera:before { 
+  content: '\e80c';
+} 
+.mjs-i-picture:before {
+  content: '\e80d';
+}
+.mjs-i-video:before {
+  content: '\e80e'; 
+} 
+.mjs-i-location:before {
+  content: '\e80f';
+}
+.mjs-i-map:before {
+  content: '\e810'; 
+}
+.mjs-parent-spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  background: none;
+  text-align: center;
+  z-index: 5001;
+  display: none;
+  box-sizing: content-box;
+  .border-radius();
+  .box-shadow(0px 0px 2px 0px #1c1c1c);
+}
+.mjs-parent-spin .mjs-s-spin {
+  margin-top: 7px;
+}
+.mjs-do-spin > .animate-spin {
+  display: inline-block;
+  .animation();
+}
+@-moz-keyframes spin {
+  0% {
+    .transform-rotate();
+  }
+  100% {
+    .transform-rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    .transform-rotate();
+  }
+  100% {
+    .transform-rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    .transform-rotate();
+  }
+  100% {
+    .transform-rotate(359deg);
+  }
+}
+@-ms-keyframes spin {
+  0% {
+    .transform-rotate();
+  }
+  100% {
+    .transform-rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    .transform-rotate();
+  }
+  100% {
+    .transform-rotate(359deg);
+  }
+}

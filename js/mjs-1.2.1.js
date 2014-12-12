@@ -1,4 +1,4 @@
-/* Magneticmediajs v1.2.0 | Copyright (c) 2014 Arnaud Leyder at Leyder Consulting https://www.leyder-consulting.com/
+/* Magneticmediajs v1.2.1 | Copyright (c) 2014 Arnaud Leyder at Leyder Consulting https://www.leyder-consulting.com/
 License information available at https://www.magneticmediajs.com/terms-of-service.html
 For contact information please visit https://www.magneticmediajs.com
 */
@@ -864,7 +864,7 @@ var Magneticmediajs = (function() {
             
             // append loading bar only once
             if (!$('body').has('.mjs-parent-spin').length) {
-                $('body').append('<div class="mjs-parent-spin"><span class="mjs-icon-s-spin animate-spin"></span></div>');
+                $('body').append('<div class="mjs-parent-spin"><span class="mjs-s-spin animate-spin"></span></div>');
                 _mjsColorSpin(color1, color2);
             }
             
@@ -919,11 +919,11 @@ var Magneticmediajs = (function() {
                     }
                     if (showIcons) {
                         if (data[j][0] === 'video' || data[j][0] === 'youtube' || data[j][0] === 'vimeo' || data[j][0] === 'dailymotion') {
-                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-icon-i-play-circled"></div>');
+                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-i-play-circled"></div>');
                         } else if(data[j][0] === 'maps') {
-                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-icon-i-location"></div>');
+                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-i-location"></div>');
                         } /*else {
-                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-icon-i-picture"></div>');
+                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-i-picture"></div>');
                         }*/
                     }
                     $('.mjs-video-play-gallery').css({'color':'#'+color2});
@@ -997,9 +997,9 @@ var Magneticmediajs = (function() {
                     } else {
                         uniqueId = tempSelectorID;
                     }
-                    $('.mjs-fullscreen').append('<div class="mjs-fs-wrapper" id="'+uniqueId+'"><div class="mjs-close mjs-icon-i-cancel"></div></div>');
+                    $('.mjs-fullscreen').append('<div class="mjs-fs-wrapper" id="'+uniqueId+'"><div class="mjs-close mjs-icons mjs-i-cancel"></div></div>');
                     if (sharing) {
-                        $('.mjs-fs-wrapper').append('<div class="mjs-facebook mjs-icon-i-facebook-squared"></div><div class="mjs-twitter mjs-icon-i-twitter-squared"></div>');
+                        $('.mjs-fs-wrapper').append('<div class="mjs-facebook mjs-icons mjs-i-facebook-squared"></div><div class="mjs-twitter mjs-icons mjs-i-twitter-squared"></div>');
                     }
                     if (displayTitle) {
                         if ((data[imageOnNumber][0] === 'image' || data[imageOnNumber][0] === 'instagram') && !gallery && (typeof data[imageOnNumber][2] !== 'undefined')) {
@@ -1041,7 +1041,7 @@ var Magneticmediajs = (function() {
     
                     //previous / next button for gallery
                     if (nbOfData > 1 && multiple) {
-                        $('.mjs-fs-wrapper').append('<div class="mjs-previous mjs-icon-i-left-open"></div><div class="mjs-next mjs-icon-i-right-open"></div>');
+                        $('.mjs-fs-wrapper').append('<div class="mjs-previous mjs-i-left-open"></div><div class="mjs-next mjs-i-right-open"></div>');
                         $('.mjs-next,.mjs-previous').css({'color':'#'+color2});
                         $('.mjs-previous').on('touchstart', function(event) {
                             event.stopPropagation();
@@ -1330,12 +1330,11 @@ var Magneticmediajs = (function() {
                         var tempBorderWidth = result[2];
                         var tempBorderRadius = result[3];
                         $('.mjs-fullscreen').css({'width':newVoWidthViewport+'px','height':newVoHeightViewport+'px'});
-                        var color1 = $('.mjs-fs-wrapper').css('border-left-color');
                         if (contentType === 'maps') {
-                            $('.mjs-fs-wrapper').css({'width':width+'px', 'height':height+'px', 'border':tempBorderWidth+'px solid '+color1, 'border-radius':tempBorderRadius+'px'});
+                            $('.mjs-fs-wrapper').css({'width':width+'px', 'height':height+'px'});
                             google.maps.event.trigger(mjsGlobal['mapInstance'], 'resize');
                         } else {
-                            $('.mjs-fs-wrapper').css({'width':width+'px', 'height':height+'px', 'border':tempBorderWidth+'px solid '+color1, 'border-radius':tempBorderRadius+'px'});
+                            $('.mjs-fs-wrapper').css({'width':width+'px', 'height':height+'px'});
                             if (contentType === 'video') {
                                 $('.mjs-video-player').css({'width':width+'px', 'height':height+'px'});    
                                 var iFrameWidth = 0;
