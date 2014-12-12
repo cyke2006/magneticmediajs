@@ -92,8 +92,8 @@ var Magneticmediajs = (function() {
     };
     
     // function to check if device is an iPod or an iPhone
-    var _mjsIsIpos = function() {
-        var iOS = navigator.userAgent.toLowerCase().match(/(iphone|ipod)/g) ? true : false ;
+    var _mjsIsIos = function() {
+        var iOS = navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/g) ? true : false ;
         return iOS;
     };
     
@@ -192,7 +192,7 @@ var Magneticmediajs = (function() {
     
     // required for iOS correct heightViewport
     var _mjsGetAccurateHeight = function() {
-        if (_mjsIsIpos()) {
+        if (_mjsIsIos()) {
             var heightViewport = window.innerHeight;
         } else {
             var heightViewport = $(window).height();
