@@ -1,4 +1,4 @@
-/* Magneticmediajs v1.2.1 | Copyright (c) 2014 Arnaud Leyder at Leyder Consulting https://www.leyder-consulting.com/
+/* Magneticmediajs 1.2.2 | Copyright (c) 2014 Arnaud Leyder at Leyder Consulting https://www.leyder-consulting.com/
 License information available at https://www.magneticmediajs.com/terms-of-service.html
 For contact information please visit https://www.magneticmediajs.com
 */
@@ -53,6 +53,11 @@ var Magneticmediajs = (function() {
             ecommerce: false,
             showIcons:true,
             galleryMaxThumbnailHeight: 150,
+			thumbnailPadding: 0,
+			thumbnailBorderWidth: 0,
+			thumbnailBorderRadius: 0,
+			thumbnailBorderColor: 'BBB',
+			filter: 'none',
             onMjsMediaOnStage: function(){},
             onMjsMediaOffStage: function(){}
         };
@@ -209,7 +214,7 @@ var Magneticmediajs = (function() {
     };
     
     // function to load image/photo content as the main overlay item
-    var _mjsLoadImage = function(src, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2 ,borderWidth ,borderRadius ,multiple) {
+    var _mjsLoadImage = function(src, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2 ,borderWidth ,borderRadius ,multiple, filter) {
         var voWidthViewport = $(window).width();
         var voHeightViewport = _mjsGetAccurateHeight();
         var newImage = new Image();
@@ -233,6 +238,9 @@ var Magneticmediajs = (function() {
                 $('.mjs-fs-wrapper').css({'margin-top':'-15px'});
             }
             _mjsColorIt(color1, color2, tempBorderWidth, tempBorderRadius);
+			if (filter !== 'none') {
+				$('.mjs-fs-wrapper > img').addClass('mjs-'+filter);
+			}
             $('.mjs-parent-spin').removeClass('mjs-do-spin');
             $('.mjs-parent-spin').hide();
             _adjustRoundBorder(tempBorderWidth, tempBorderRadius);
@@ -472,7 +480,7 @@ var Magneticmediajs = (function() {
     };
     
     // function to get Flickr content    
-    var _mjsGetFlickrStream = function (user_id, title, i, type, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2, borderWidth, borderRadius, multiple) {
+    var _mjsGetFlickrStream = function (user_id, title, i, type, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2, borderWidth, borderRadius, multiple, filter) {
         var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3b109ff5810e4d81b73292507ca19928&text='+title+'&safe_search=1&per_page=10&user_id='+user_id;
         var src, srcThumb;
         $.ajax({
@@ -487,7 +495,7 @@ var Magneticmediajs = (function() {
                         $('#mjsThumb'+i).prop('src',srcThumb);
                     } else {
                         src = mjsGlobal['locationProtocol']+"//farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_b.jpg";
-                        _mjsLoadImage(src,zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                        _mjsLoadImage(src,zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                     }
                 });
             } else {
@@ -759,6 +767,7 @@ var Magneticmediajs = (function() {
         }
         var inputSettings = this.settings;
         var settings = this._defaults;
+		// validate input values
         for (var properties in settings) {
             if (typeof inputSettings[properties] !== "undefined") {
                 if (typeof inputSettings[properties] !== typeof settings[properties]) {
@@ -795,6 +804,10 @@ var Magneticmediajs = (function() {
             
         var gallery = settings.gallery;
         var galleryMaxThumbnailHeight = settings.galleryMaxThumbnailHeight;
+		var thumbnailPadding = settings.thumbnailPadding;
+		var thumbnailBorderWidth = settings.thumbnailBorderWidth;
+		var thumbnailBorderRadius = settings.thumbnailBorderRadius;
+		var thumbnailBorderColor = settings.thumbnailBorderColor; 
         var videoWidth = settings.videoWidth;
         var videoHeight = settings.videoHeight;
         var autoPlayVideo = settings.autoPlayVideo;
@@ -810,6 +823,7 @@ var Magneticmediajs = (function() {
         var displayTitle = settings.displayTitle;
         var color1 = settings.color1;
         var color2 = settings.color2;
+		var filter = settings.filter;
         var borderWidth = settings.borderWidth;
         if (borderWidth > 20) {
             borderWidth = 20;
@@ -910,7 +924,7 @@ var Magneticmediajs = (function() {
                         _getDMThumbnail(data[j][1], data[j][2], j);    
                     } else {
                         if (data[j][0] === 'flickr') {
-                            _mjsGetFlickrStream(data[j][1], data[j][2], j, 'thumbnail', '', '', '', '', '', '', '', '', '', '');
+                            _mjsGetFlickrStream(data[j][1], data[j][2], j, 'thumbnail', '', '', '', '', '', '', '', '', '', '',filter);
                         } else if(data[j][0] === 'instagram') {
                             $('#mjsThumb'+j).prop('src', mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[j][1]+'/media/?size=m');
                         } else {
@@ -1012,15 +1026,15 @@ var Magneticmediajs = (function() {
                     
                     // current content in the data array is an image
                     if (data[imageOnNumber][0] === 'image') {
-                        _mjsLoadImage(data[imageOnNumber][indexOne+1],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                        _mjsLoadImage(data[imageOnNumber][indexOne+1],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                     }
                     // current content in the data array is flickr content
                     else if (data[imageOnNumber][0] === 'flickr') {
-                        _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                        _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                     }
                     // current content in the data array is instagram content
                     else if (data[imageOnNumber][0] === 'instagram') {
-                        _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][indexOne+1]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                        _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][indexOne+1]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                     }
                     // current content in the data array is video content in a gallery
                     else if ((data[imageOnNumber][0] === 'video' || data[imageOnNumber][0] === 'youtube' || data[imageOnNumber][0] === 'vimeo' || data[imageOnNumber][0] === 'dailymotion')) {
@@ -1076,19 +1090,19 @@ var Magneticmediajs = (function() {
                                 jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][2]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);    
+                                    _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][2]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);    
                                 });
                             } else if (data[imageOnNumber][0] === 'flickr') {
                                 jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'image') {
                                 jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsLoadImage(data[imageOnNumber][2],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsLoadImage(data[imageOnNumber][2],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'video' || data[imageOnNumber][0] === 'youtube' || data[imageOnNumber][0] === 'vimeo' || data[imageOnNumber][0] === 'dailymotion') {
                                 jToRemove.fadeOut(200,function(){
@@ -1140,20 +1154,20 @@ var Magneticmediajs = (function() {
                                 jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][2]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][2]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                     
                                 });
                             } else if (data[imageOnNumber][0] === 'flickr') {
                                 jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber, 'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber, 'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'image') {
                                 jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
-                                    _mjsLoadImage(data[imageOnNumber][2],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple);
+                                    _mjsLoadImage(data[imageOnNumber][2],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'video' || data[imageOnNumber][0] === 'youtube' || data[imageOnNumber][0] === 'vimeo' || data[imageOnNumber][0] === 'dailymotion'){
                                 jToRemove.fadeOut(200, function() {
@@ -1210,6 +1224,8 @@ var Magneticmediajs = (function() {
                             } else if (!target.parents('.mjs-fs-wrapper').length || target.hasClass('mjs-close')) { 
                                 $('.mjs-fullscreen').fadeOut(300,function(){
                                     $(this).remove();
+									$('.mjs-parent-spin').removeClass('mjs-do-spin');
+                                    $('.mjs-parent-spin').hide();
                                     _mjsUnsetItemOn(mjsGlobal);
                                     $(document).trigger('mjsMediaOffStage');
                                 });
@@ -1268,7 +1284,7 @@ var Magneticmediajs = (function() {
                         clearInterval(thumbTimer);
                     }
                 }, 100);
-                $('.mjs-generic').css({'border':borderWidth/2+'px solid #'+color1,'border-radius':borderRadius+'px'});
+                $('.mjs-generic').css({'border':thumbnailBorderWidth+'px solid #'+thumbnailBorderColor,'-webkit-border-radius':thumbnailBorderRadius+'px','-moz-border-radius':thumbnailBorderRadius+'px','border-radius':thumbnailBorderRadius+'px','padding':thumbnailPadding+'px'});
                 $('.mjs-generic img').css({'max-height':galleryMaxThumbnailHeight+'px','background':'#'+color1,'border':'none'});   
             }
             
@@ -1353,6 +1369,13 @@ var Magneticmediajs = (function() {
                                 $('.mjs-video-player > iframe').css({'width':iFrameWidth+'px','height':iFrameHeight+'px'});    
                             }
                         }
+						if ($('.mjs-fullscreen > .mjs-fs-wrapper').find('#mjs-zoom-box').length > 0) {
+							$('.mjs-fullscreen').trigger('click');
+							var matchId = $('.mjs-fs-wrapper').prop('id').replace('mjs', '');
+							setTimeout(function() {
+								$('#'+matchId).trigger('click');
+							}, 1000);
+						}
                         inResizing = false;
                     },100);
                     inResizing = true;

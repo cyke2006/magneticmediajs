@@ -105,17 +105,18 @@ body {
   margin: 2px;
   display: inline-block;
   overflow: hidden;
-  background: #000;
+  background: none;
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
 }
 .mjs-generic img {
   display: block;
   .transition();
   box-sizing: content-box;
   cursor: pointer;
-  opacity: 1;
 }
-.mjs-generic img:hover {
-  opacity: 0.9;
+.mjs-generic:not(.mjs-ecommerce-col-img) img:hover {
   .transform-scale();
 }
 .mjs-row-gallery {
@@ -176,6 +177,11 @@ body {
   position: relative;
   width: 100%;
   margin-bottom: 2px;
+  background: none;
+  opacity: 1;
+} 
+.mjs-ecommerce-col-img:hover {
+  .transform-scale(1.05);
 } 
 .mjs-ecommerce-col-img > img {
   width: inherit;
@@ -203,4 +209,30 @@ body {
 }
 .mjs-ecommerce-gallery .mjs-generic {
   margin: 0;
+}
+
+/* apply image filters */
+.mjs-sepia {
+  .filter-sepia();
+}
+.mjs-grayscale {
+  .filter-grayscale();
+}
+.mjs-invert {
+  .filter-invert();
+}
+.mjs-brightness {
+  .filter-brightness();
+}
+.mjs-contrast {
+  .filter-contrast();
+}
+.mjs-saturate {
+  .filter-saturate();
+}
+.mjs-blur {
+  .filter-blur();
+}
+.mjs-hue-rotate {
+  .filter-hue-rotate();
 }

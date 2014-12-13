@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>Magneticmediajs - e-commerce media gallery layout</title>
 <!-- inlcude Magneticmediajs CSS file -->
-<link rel="stylesheet" href="css/mjs-1.2.1.min.css" type="text/css" />
+<link rel="stylesheet" href="css/mjs-1.2.2.min.css" type="text/css" />
 </head>
 <body>
 
@@ -20,7 +20,7 @@
     <!-- Inlcude swfobject for flash fallback (if wanted), CDN loading: //ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js -->
     <script src="js/swfobject.js"></script>
     <!-- Inlcude Magneticmediajs JavaScript file  -->
-    <script src="js/mjs-1.2.1.min.js"></script>
+    <script src="js/mjs-1.2.2.min.js"></script>
 	<script>
 	// Wait for document to be ready with jQuery -- This is not strictly necessary here because our scripts are just before the closing body tag. However because other implementations could require this we are leaving it for reference.
 	$(document).ready(function() {
@@ -39,6 +39,10 @@
 			autoPlayVideo:false, // Autoplay video when an item is shown. Will not work on mobile due to Android and iOS restrictions on the matter
 			showIcons:true, // show icons on thumbnails within the gallery for maps and video content
 			ecommerce:true, // display a gallery with a e-commerce layout
+			thumbnailPadding: 3,
+			thumbnailBorderWidth: 1,
+			thumbnailBorderRadius: 3,
+			thumbnailBorderColor: 'BBB',
 			onMjsMediaOnStage: function(){console.log('onMjsMediaOnStage')}, // callback when a media item has completed opening
 			onMjsMediaOffStage: function(){console.log('onMjsMediaOffStage')} // callback when a media item has competed closing
 		};
