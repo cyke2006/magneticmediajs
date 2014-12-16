@@ -115,7 +115,7 @@ body {
   width: 100%;
   height: 100%;
 }
-/* gallery layout (applies to ecommerce layout as well) */
+/* media gallery (applies to ecommerce gallery as well) */
 .mjs-generic {
   position: relative;
   margin: 2px;
@@ -187,7 +187,7 @@ body {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* ecommerce layout only */
+/* ecommerce gallery only */
 .mjs-ecommerce-media-queries {
   position: relative;
   width: 250px;
@@ -342,13 +342,13 @@ body {
   line-height: 1em;
   speak: none;
 }
-[class^="mjs-i"],
-[class*=" mjs-i"] {
+[class^="mjs-i-"],
+[class*=" mjs-i-"] {
   text-shadow: none;
   opacity: 1;
 }
-[class^="mjs-i"]:hover,
-[class*=" mjs-i"]:hover {
+[class^="mjs-i-"]:hover,
+[class*=" mjs-i-"]:hover {
   opacity: 0.8;
 }
 .mjs-i-facebook-squared:before {
