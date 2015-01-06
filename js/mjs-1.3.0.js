@@ -1,7 +1,9 @@
-/* Magneticmediajs 1.2.2 | Copyright (c) 2014 Arnaud Leyder at Leyder Consulting https://www.leyder-consulting.com/
-License information available at https://www.magneticmediajs.com/terms-of-service.html
-For contact information please visit https://www.magneticmediajs.com
-*/
+/* 
+ * Magneticmediajs 1.3.0 (https://www.magneticmediajs.com)
+ * Copyright (c) 2014-2015 Arnaud Leyder at Leyder Consulting (https://www.leyder-consulting.com)
+ * Released under MIT license: https://www.magneticmediajs.com/mit-license.html
+ * For contact information please visit https://www.magneticmediajs.com/about.html
+ */
 
 /**** Global object for state variables ****/
 var mjsGlobal = {
@@ -28,11 +30,11 @@ var mjsGlobal = {
 /**** Magneticmediajs class definition ****/
 var Magneticmediajs = (function() {
 
+
     /** constructor **/
     function Magneticmediajs(elements, settings, data) {
         this.elements = this.getElements(elements);
         this._defaults = {
-
             color1: '080808',
             color2: 'fdfdfd',
             borderWidth: 8,
@@ -65,6 +67,7 @@ var Magneticmediajs = (function() {
         this.data = data;
     }
 
+
     /** private methods **/
     // get location protocol
     var _mjsGetLocationProtocol = function () {
@@ -77,12 +80,10 @@ var Magneticmediajs = (function() {
             mjsGlobal['locationProtocol'] = 'https:';
         }
     };
-    
     // function to check for HTML5 video support
     var _mjsSupportsVideo = function() {
         return !!document.createElement('video').canPlayType;
     };
-    
     // function to check for MP4/H264 decoding support
     var _mjsSupportsMp4 = function() {
         var supports = false;
@@ -95,13 +96,11 @@ var Magneticmediajs = (function() {
         }
         return supports;
     };
-    
     // function to check if device is an iPod or an iPhone
     var _mjsIsIos = function() {
         var iOS = navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad)/g) ? true : false ;
         return iOS;
     };
-    
     // function to get RGB color code based on hex code
     var _mjsHexToRgb = function(hex) {
         var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -115,7 +114,6 @@ var Magneticmediajs = (function() {
             b: parseInt(result[3], 16)
         } : null;
     };
-    
     // function to make the fullscreen overlay content responsive
     var _mjsMakeItFit = function(width,height,widthViewport,heightViewport,borderWidth,borderRadius,contentType) {
         var ratio = width/height;
@@ -173,7 +171,6 @@ var Magneticmediajs = (function() {
         result[3] = borderRadius;
         return result;
     };
-    
     // set which item is on stage
     var _mjsSetItemOn = function(dataType) {
         mjsGlobal['itemOnStage'] = true;
@@ -186,7 +183,6 @@ var Magneticmediajs = (function() {
             mjsGlobal['itemType'] = 'maps';
         }
     };
-    
     // unsetset item on stage
     var _mjsUnsetItemOn = function() {
         mjsGlobal['itemOnStage'] = false;
@@ -194,7 +190,6 @@ var Magneticmediajs = (function() {
         mjsGlobal['itemType'] = '';
         mjsGlobal['mapInstance']  = null;
     };
-    
     // required for iOS correct heightViewport
     var _mjsGetAccurateHeight = function() {
         if (_mjsIsIos()) {
@@ -204,15 +199,13 @@ var Magneticmediajs = (function() {
         }
         return heightViewport;
     };
-    
     // function to add round border support when borderWidth is set to 0
     var _adjustRoundBorder = function (borderWidth, borderRadius) {
         if (borderWidth === 0 && borderRadius > 0) {
-            $('.mjs-fs-wrapper > img').css('border-radius',(borderRadius)+'px');
-            $('.mjs-fs-wrapper > video').css('border-radius',(borderRadius)+'px');
+            $('.mjs-fs-wrapper > img').css('border-radius', (borderRadius)+'px');
+            $('.mjs-fs-wrapper > video').css('border-radius', (borderRadius)+'px');
         }
-    };
-    
+    }; 
     // function to load image/photo content as the main overlay item
     var _mjsLoadImage = function(src, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2 ,borderWidth ,borderRadius ,multiple, filter) {
         var voWidthViewport = $(window).width();
@@ -220,6 +213,7 @@ var Magneticmediajs = (function() {
         var newImage = new Image();
         newImage.id = 'mjs-img-full';
         $(newImage).appendTo('.mjs-fs-wrapper');
+		var $wrapper = $('.mjs-fs-wrapper');
         $(newImage).on('load', function() {
             var newSize = _mjsGetNaturalSize(newImage);
             var width = newSize[0];
@@ -229,32 +223,29 @@ var Magneticmediajs = (function() {
             height = result[1];
             var tempBorderWidth = result[2];
             var tempBorderRadius = result[3];
-            $('.mjs-fs-wrapper').css({'width':width+'px','height':height+'px','max-width':'','max-height':''}).fadeIn(300);
+            $wrapper.css({'width':width+'px','height':height+'px','max-width':'','max-height':''}).fadeIn(300);
             if (zoomOn) {
                 _mjsRunZoomProcess(newImage.src,zoomLevel,zoomType,zoomSize);
             }
             if (displayTitle && mjsTitle !== '') {
-                $('.mjs-fs-wrapper').append('<div class="mjs-title-area">'+mjsTitle+'</div>');
-                $('.mjs-fs-wrapper').css({'margin-top':'-15px'});
+                $wrapper.append('<div class="mjs-title-area">'+mjsTitle+'</div>');
+                $wrapper.css({'margin-top':'-15px'});
             }
             _mjsColorIt(color1, color2, tempBorderWidth, tempBorderRadius);
 			if (filter !== 'none') {
-				$('.mjs-fs-wrapper > img').addClass('mjs-'+filter);
+				$wrapper.find('img').addClass('mjs-'+filter);
 			}
-            $('.mjs-parent-spin').removeClass('mjs-do-spin');
-            $('.mjs-parent-spin').hide();
+            $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
             _adjustRoundBorder(tempBorderWidth, tempBorderRadius);
             $(document).trigger('mjsMediaOnStage');
         });
         $(newImage).on('error', function() {
             $('.mjs-fullscreen').remove();
-            $('.mjs-parent-spin').removeClass('mjs-do-spin');
-            $('.mjs-parent-spin').hide();
+            $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
             alert('An error occurred while loading this content. Please try again later.');
         });
         newImage.src = src;
     };
-
     // functions to load Google Maps content as the main overlay item
     var _mjsInitializeMaps = function(lat, lng, zoom, title, description) {
         var thisLatlng = new google.maps.LatLng(lat, lng)
@@ -279,8 +270,9 @@ var Magneticmediajs = (function() {
          });
     };
     var _mjsLoadMapsScript = function(key) {
-        $('#mjsMaps').next().remove();
-        $('#mjsMaps').remove();
+		var $maps = $('#mjsMaps');
+        $maps.next().remove();
+        $maps.remove();
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.id = 'mjsMaps';
@@ -311,11 +303,9 @@ var Magneticmediajs = (function() {
         var tempBorderRadius = result[3];
         $('.mjs-fs-wrapper').css({'width':width+'px','height':height+'px','max-width':'','max-height':'','background':'#FFFFFF','color':'#000000'}).fadeIn(300);    
         _mjsColorIt(color1, color2, tempBorderWidth, tempBorderRadius);
-        $('.mjs-parent-spin').removeClass('mjs-do-spin');
-        $('.mjs-parent-spin').hide();
+        $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
         $(document).trigger('mjsMediaOnStage');
     };
-
     // function to load video content as the main overlay item
     var _mjsLoadVideo = function(type, src, videoWidth, videoHeight, autoPlayVideo, displayTitle, mjsTitle, color1, color2, borderWidth, borderRadius, multiple, poster) {
         var voWidthViewport = $(window).width();
@@ -369,7 +359,7 @@ var Magneticmediajs = (function() {
         var tempBorderWidth = result[2];
         var tempBorderRadius = result[3];
         $('.mjs-fs-wrapper').append(videoPlayer);
-        $('.mjs-fs-wrapper,.mjs-video-player').css({'width':width+'px', 'height':height+'px', 'max-width':videoWidth+'px', 'max-height':videoHeight+'px'}).fadeIn(300);
+        $('.mjs-fs-wrapper, .mjs-video-player').css({'width':width+'px', 'height':height+'px', 'max-width':videoWidth+'px', 'max-height':videoHeight+'px'}).fadeIn(300);
         var iFrameWidth = 0;
         var iFrameHeight = 0;
         if (width > videoWidth) {
@@ -382,18 +372,15 @@ var Magneticmediajs = (function() {
         } else {
             iFrameHeight = height;
         }
-        $('.mjs-video-player > iframe').css({'width':iFrameWidth+'px', 'height':iFrameHeight+'px'});    
+        $('.mjs-video-player').find('iframe').css({'width':iFrameWidth+'px', 'height':iFrameHeight+'px'});    
         if (displayTitle && mjsTitle !== '') {
-            $('.mjs-fs-wrapper').append('<div class="mjs-title-area">'+mjsTitle+'</div>');
-            $('.mjs-fs-wrapper').css({'margin-top':'-15px'});
+            $('.mjs-fs-wrapper').append('<div class="mjs-title-area">'+mjsTitle+'</div>').css({'margin-top':'-15px'});
         }
         _mjsColorIt(color1, color2, tempBorderWidth, tempBorderRadius);
-        $('.mjs-parent-spin').removeClass('mjs-do-spin');
-        $('.mjs-parent-spin').hide();
+        $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
         _adjustRoundBorder(tempBorderWidth, tempBorderRadius);
         $(document).trigger('mjsMediaOnStage');
     };
-    
     // function to get Youtube thumbnail
     var _getYTThumbnail = function (videoId, thumbnailSize, i) {
         var ytThumbQ = 'mqdefault';
@@ -406,8 +393,7 @@ var Magneticmediajs = (function() {
         }
         var src =  mjsGlobal['locationProtocol']+'//img.youtube.com/vi/'+videoId+'/'+ytThumbQ+'.jpg';
         $('#mjsThumb'+i).prop('src', src);
-    };
-        
+    }; 
     // function to get Vimeo thumbnail
     var _getVimeoThumbnail = function (videoId, thumbnailSize, i) {
         $.ajax({
@@ -441,7 +427,6 @@ var Magneticmediajs = (function() {
             mjsGlobal['loadError'] = mjsGlobal['loadError']+1;
         });
     };
-
     // function to get Dailymotion thumbnail
     var _getDMThumbnail = function (videoId, thumbnailSize, i) {
         var tbOut = '360';
@@ -461,7 +446,6 @@ var Magneticmediajs = (function() {
             mjsGlobal['loadError'] = mjsGlobal['loadError']+1;
         });
     };
-    
     // function to get storage size of images
     var _mjsGetNaturalSize = function(img) {
         var trueSize = new Array() 
@@ -478,7 +462,6 @@ var Magneticmediajs = (function() {
         }
         return trueSize;
     };
-    
     // function to get Flickr content    
     var _mjsGetFlickrStream = function (user_id, title, i, type, zoomOn, zoomLevel, zoomType, zoomSize, displayTitle, mjsTitle, color1, color2, borderWidth, borderRadius, multiple, filter) {
         var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3b109ff5810e4d81b73292507ca19928&text='+title+'&safe_search=1&per_page=10&user_id='+user_id;
@@ -504,8 +487,7 @@ var Magneticmediajs = (function() {
                     mjsGlobal['loadError'] = mjsGlobal['loadError']+1;
                 } else {
                     $('.mjs-fullscreen').remove();
-                    $('.mjs-parent-spin').removeClass('mjs-do-spin');
-                    $('.mjs-parent-spin').hide();
+                    $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
                     alert('An error occurred while loading this content. Please try again later.');
                 }    
             }
@@ -515,13 +497,11 @@ var Magneticmediajs = (function() {
                 mjsGlobal['loadError'] = mjsGlobal['loadError']+1;
             } else {
                 $('.mjs-fullscreen').remove();
-                $('.mjs-parent-spin').removeClass('mjs-do-spin');
-                $('.mjs-parent-spin').hide();
+                $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
                 alert('An error occurred while loading this content. Please try again later.');
             }
         });
     };
-    
     // function to get X coordinate of touch event
     var _mjsGetPosX = function(e, mjsIsTouch) {
         if (!mjsIsTouch) {
@@ -537,7 +517,6 @@ var Magneticmediajs = (function() {
         }
         return posx;
     };
-    
     // function to get Y coordinate of touch event
     var _mjsGetPosY = function(e, mjsIsTouch) {
         if (!mjsIsTouch) {
@@ -553,7 +532,6 @@ var Magneticmediajs = (function() {
         }
         return posy;
     };
-    
     // functions to show magnifying glass
     var _mjsShowZoom = function (e, mjsIsTouch, widthWrapper, heightWrapper, leftWrapper, topWrapper, zoomLevel, zoomSize) {
         var posX = _mjsGetPosX(e,mjsIsTouch);
@@ -582,8 +560,7 @@ var Magneticmediajs = (function() {
         if (bgX < 0) {
             bgX = 0;
         }
-        $('#mjs-zoom-box').css({'background-position':'-'+bgX+'px -'+bgY+'px', 'left':''+setLeft+'px', 'top':''+setTop+'px'});
-        $('#mjs-zoom-box').css({'background-size':''+(widthWrapper*zoomLevel)+'px '+(heightWrapper*zoomLevel)+'px'});
+        $('#mjs-zoom-box').css({'background-position':'-'+bgX+'px -'+bgY+'px', 'left':''+setLeft+'px', 'top':''+setTop+'px', 'background-size':''+(widthWrapper*zoomLevel)+'px '+(heightWrapper*zoomLevel)+'px'});
     };
     var _mjsZoomSubProcess = function(e) {
         e.stopPropagation();
@@ -594,10 +571,11 @@ var Magneticmediajs = (function() {
     };
     var _mjsRunZoomProcess = function(src, zoomLevel, zoomType, zoomSize){
         var mjsZoomOnScreen = false;
-        var widthWrapper = $('.mjs-fs-wrapper').width();
-        var heightWrapper = $('.mjs-fs-wrapper').height();
-        var leftWrapper = $('.mjs-fs-wrapper').offset().left;
-        var topWrapper = $('.mjs-fs-wrapper').offset().top;
+		var $wrapper = $('.mjs-fs-wrapper');
+        var widthWrapper = $wrapper.width();
+        var heightWrapper = $wrapper.height();
+        var leftWrapper = $wrapper.offset().left;
+        var topWrapper = $wrapper.offset().top;
         var mjsIsTouch = false;
         $(document).on('touchstart',_mjsZoomSubProcess);
         $('.mjs-fs-wrapper').on('mouseleave',function() {
@@ -606,18 +584,18 @@ var Magneticmediajs = (function() {
                 mjsZoomOnScreen = false;
             });
         });
-        $('.mjs-fs-wrapper').on('touchstart',function(event) {
+        $wrapper.on('touchstart',function(event) {
             event.stopPropagation();
             event.preventDefault();
             mjsIsTouch = true;
             var thisEvent = event;
             $(this).trigger('mouseenter',[thisEvent]);
         });
-        $('.mjs-fs-wrapper').on('mouseenter',function(event, thisEvent) {
+        $wrapper.on('mouseenter',function(event, thisEvent) {
             if (!mjsZoomOnScreen) {
                 $('<div id="mjs-zoom-box"></div>').hide().appendTo($(this));
-                $('#mjs-zoom-box').css({'background-image':'url("'+src+'")'});
-                $('#mjs-zoom-box').fadeIn('fast');
+				var $zoomBox = $('#mjs-zoom-box');
+                $zoomBox.css({'background-image':'url("'+src+'")'}).fadeIn('fast');
                 mjsZoomOnScreen = true;
                 var currentViewportWidth = $(window).width();
                 var zoomSizeTemp = zoomSize;
@@ -631,12 +609,11 @@ var Magneticmediajs = (function() {
                 } else if(zoomSizeTemp>300) {
                     zoomSizeTemp=300;
                 }
-                $('#mjs-zoom-box').width(zoomSizeTemp);
-                $('#mjs-zoom-box').height(zoomSizeTemp);
+                $zoomBox.width(zoomSizeTemp).height(zoomSizeTemp);
                 if (zoomType === 'lens') {
-                    $('#mjs-zoom-box').css({'border-radius': '50%','-webkit-box-shadow':'inset 0px 0px 2px 2px #000, 0 0 0 8px #0a0a0a, 0 0 0 9px #EEE, 0px 0px 2px 10px #000','box-shadow':'inset 0px 0px 2px 2px #000, 0 0 0 8px #0a0a0a, 0 0 0 9px #EEE, 0px 0px 2px 10px #000'}); 
+                    $zoomBox.css({'border-radius': '50%','-webkit-box-shadow':'inset 0px 0px 2px 2px #000, 0 0 0 8px #0a0a0a, 0 0 0 9px #EEE, 0px 0px 2px 10px #000','box-shadow':'inset 0px 0px 2px 2px #000, 0 0 0 8px #0a0a0a, 0 0 0 9px #EEE, 0px 0px 2px 10px #000'}); 
                 } else {
-                    $('#mjs-zoom-box').css({'border-radius': '1px','border':'none','-webkit-box-shadow':'0px 0px 3px 1px #000','box-shadow':'0px 0px 3px 1px #000'}); 
+                   $zoomBox.css({'border-radius': '1px', 'border':'none', '-webkit-box-shadow':'0px 0px 3px 1px #000', 'box-shadow':'0px 0px 3px 1px #000'}); 
                 }
                 if (!mjsIsTouch) {
                     var thisEvent = event;
@@ -647,15 +624,14 @@ var Magneticmediajs = (function() {
                     var thisEvent = event;
                 }
                 if (thisEvent.target.id !== 'mjs-zoom-box') {
-                    $('.mjs-fs-wrapper').trigger('mouseleave');
+                    $wrapper.trigger('mouseleave');
                 }
             }
-            $('.mjs-fs-wrapper').on('mousemove touchmove',function(event){
+            $wrapper.on('mousemove touchmove',function(event){
                 _mjsShowZoom(event, mjsIsTouch, widthWrapper, heightWrapper, leftWrapper, topWrapper, zoomLevel, zoomSizeTemp);
             });    
         });
     };    
-
     // color icons and wrappers
     var _mjsColorIt = function(color1, color2, borderWidth, borderRadius) {
         if (color1 === color2) {
@@ -665,27 +641,25 @@ var Magneticmediajs = (function() {
             var c1 = color1;
             var c2 = color2;
         }
-        $('.mjs-fs-wrapper').css({'border-radius':borderRadius+'px'});
-        if ($('.mjs-fs-wrapper').find('img#mjs-img-full').length > 0) {
-            $('.mjs-fs-wrapper > img#mjs-img-full').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
-        } else if($('.mjs-fs-wrapper').find('.map-area').length > 0) {
-            $('.mjs-fs-wrapper > .map-area').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
-        } else if ($('.mjs-fs-wrapper').find('video.mjs-video-player').length > 0) {
-            $('.mjs-fs-wrapper > video.mjs-video-player').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
-        } else if ($('.mjs-video-player').find('iframe').length > 0) {
-            $('.mjs-video-player > iframe').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
+		var $wrapper = $('.mjs-fs-wrapper');
+        $wrapper.css({'border-radius':borderRadius+'px'});
+        if ($wrapper.find('#mjs-img-full').length > 0) {
+            $wrapper.find('#mjs-img-full').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
+        } else if($wrapper.find('.map-area').length > 0) {
+            $wrapper.find('.map-area').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
+        } else if ($wrapper.find('video.mjs-video-player').length > 0) {
+            $wrapper.find('video.mjs-video-player').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
+        } else if ($wrapper.find('iframe').length > 0) {
+           $wrapper.find('iframe').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
         } 
-        $('.mjs-title-area').css({'color':'#'+c2,'background':'#'+c1, 'border-radius':Math.round(borderRadius/2)+'px'});
-        $('.mjs-close,.mjs-facebook,.mjs-twitter').css({'color':'#'+color2});
+        $('.mjs-title-area').css({'color':'#'+c2, 'background':'#'+c1, 'border-radius':Math.round(borderRadius/2)+'px'});
+        $('.mjs-close, .mjs-facebook, .mjs-twitter').css({'color':'#'+color2});
     };
-    
     // color loading spinner
     var _mjsColorSpin = function (color1, color2) {
         $('.mjs-parent-spin').css({'background':'#'+color1, 'color':'#'+color2});
     };
-    
-
-    // Keyboard control
+    // keyboard control
     var _makeKeyboard = function(e) {
         e.stopPropagation();  
         var imageSelected  = e.data.param1.find('img');
@@ -717,9 +691,8 @@ var Magneticmediajs = (function() {
             $('.mjs-next').trigger('click'); 
             break;
             default: return;
-            }
         }
-            
+    };       
     // Deeplinking
     var _mjsDirectAccess = function (elmentid, gallery) {
         var urlWithQuery = $(location).attr('search');
@@ -735,7 +708,6 @@ var Magneticmediajs = (function() {
             }
         }
     }
-    
     // function to update state of touchmove event
     var _mjsCheckTouchMouve = function (event) {
         if (Math.abs(event.originalEvent.touches[0].clientX - mjsGlobal['startX']) > 10 || Math.abs(event.originalEvent.touches[0].clientY - mjsGlobal['startY']) > 10) {
@@ -743,7 +715,6 @@ var Magneticmediajs = (function() {
             $(document).off('touchmove',_mjsCheckTouchMouve);
         }
     }
-    
     // function to update state of swipe event
     var _mjsCheckSwipe = function (event) {
         if (event.originalEvent.touches[0].clientX - mjsGlobal['startX'] > 50) {
@@ -757,12 +728,13 @@ var Magneticmediajs = (function() {
         }
     }
     
+	
     /** public methods **/
     // init and DOM manipulation
     Magneticmediajs.prototype.init = function() {
         if (this.elements === null) {
             return null;
-        }else {
+        } else {
             var elements = $.trim(this.elements).split(',');
         }
         var inputSettings = this.settings;
@@ -800,8 +772,7 @@ var Magneticmediajs = (function() {
                     return null;    
                 }
             }
-        }
-            
+        }  
         var gallery = settings.gallery;
         var galleryMaxThumbnailHeight = settings.galleryMaxThumbnailHeight;
 		var thumbnailPadding = settings.thumbnailPadding;
@@ -845,11 +816,9 @@ var Magneticmediajs = (function() {
             gallery = true;
         }    
         var showIcons = settings.showIcons;
-        
-        // Callbacks
+        // callbacks
         var onMjsMediaOnStage = settings.onMjsMediaOnStage;
         var onMjsMediaOffStage = settings.onMjsMediaOffStage;
-        
         // initialize other local variables
         var multiple = false;
         if (gallery) {
@@ -858,16 +827,15 @@ var Magneticmediajs = (function() {
         var nbOfData = data.length;
         var percentPerImage = 100/nbOfData;
         _mjsGetLocationProtocol();
-        
         // loop for multiple separated elements submitted  new Magneticmediajs('#id, #id2, .class1' ...);
-        for (var i = 0; i < elements.length; i++) {
-            var thisContainer = $($.trim(elements[i]));
+		var elementsLength = elements.length;
+        for (var i = 0; i < elementsLength; i++) {
+            var $thisContainer = $($.trim(elements[i]));
             if (!multiple) {
-                thisContainer.attr('tabindex','0');
+                $thisContainer.attr('tabindex','0');
             }
             var imageOnNumber = 0;
             var thumbLoadCount = 0;
-            
             // listener for callbacks
             $(document).on('mjsMediaOnStage', function() {
                 onMjsMediaOnStage();
@@ -875,19 +843,15 @@ var Magneticmediajs = (function() {
             $(document).on('mjsMediaOffStage', function() {
                 onMjsMediaOffStage();
             });
-            
             // append loading bar only once
             if (!$('body').has('.mjs-parent-spin').length) {
                 $('body').append('<div class="mjs-parent-spin"><span class="mjs-s-spin animate-spin"></span></div>');
                 _mjsColorSpin(color1, color2);
             }
-            
             // hide gallery while content is loading (if gallery is active)
             if (gallery) {
-                thisContainer.addClass('mjs-row-gallery');
-                thisContainer.hide();
+                $thisContainer.addClass('mjs-row-gallery').hide();
             }
-             
             // loop through the array data
             for (var j = 0; j < nbOfData; j++) {
                 // render gallery thumbnails
@@ -895,23 +859,24 @@ var Magneticmediajs = (function() {
                     var tempSelectorID = 'mjs'+j;
                     if (ecommerce) {
                         if (j === 0) {
-                            thisContainer.addClass('mjs-ecommerce-gallery');
-                            thisContainer.append('<div class="mjs-generic mjs-ecommerce-main" tabindex="0"><img id="mjsThumb'+j+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /></div>');
+                            $thisContainer.addClass('mjs-ecommerce-gallery');
+                            $thisContainer.append('<div class="mjs-generic mjs-ecommerce-main" tabindex="0"><img id="mjsThumb'+j+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /></div>');
                         } else {
                             if( j === 1){
-                                thisContainer.append('<div id="mjs-ecommerce-col"></div>');
+                                $thisContainer.append('<div id="mjs-ecommerce-col"></div>');
                             }
                             $('#mjs-ecommerce-col').append('<div class="mjs-generic mjs-ecommerce-col-img" tabindex="0"><img id="mjsThumb'+j+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /></div>');
                         }
                     } else {
-                    thisContainer.append('<div class="mjs-generic" tabindex="0"><img id="mjsThumb'+j+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /></div>');
+                    $thisContainer.append('<div class="mjs-generic" tabindex="0"><img id="mjsThumb'+j+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /></div>');
                     }
-                    $('#mjsThumb'+j).on('error', {param: j}, function(event) {
+					var $thumb = $('#mjsThumb'+j) 
+                    $thumb.on('error', {param: j}, function(event) {
                         var number = event.data.param;
                         $('#mjsThumb'+number).parent().remove();
                         mjsGlobal['loadError'] = mjsGlobal['loadError'] + 1;
                     });
-                    $('#mjsThumb'+j).on('load',function() {
+                    $thumb.on('load',function() {
                         if ($(this).attr('src') !== 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D') {
                             thumbLoadCount = thumbLoadCount + 1;
                         }
@@ -926,42 +891,38 @@ var Magneticmediajs = (function() {
                         if (data[j][0] === 'flickr') {
                             _mjsGetFlickrStream(data[j][1], data[j][2], j, 'thumbnail', '', '', '', '', '', '', '', '', '', '',filter);
                         } else if(data[j][0] === 'instagram') {
-                            $('#mjsThumb'+j).prop('src', mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[j][1]+'/media/?size=m');
+                            $thumb.prop('src', mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[j][1]+'/media/?size=m');
                         } else {
-                            $('#mjsThumb'+j).prop('src', data[j][1]);
+                            $thumb.prop('src', data[j][1]);
                         }
                     }
                     if (showIcons) {
                         if (data[j][0] === 'video' || data[j][0] === 'youtube' || data[j][0] === 'vimeo' || data[j][0] === 'dailymotion') {
-                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-i-play-circled"></div>');
+                            $thumb.parent().append('<div class="mjs-video-play-gallery mjs-i-play-circled"></div>');
                         } else if(data[j][0] === 'maps') {
-                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-i-location"></div>');
-                        } /*else {
-                            $('#mjsThumb'+j).parent().append('<div class="mjs-video-play-gallery mjs-i-picture"></div>');
-                        }*/
+                            $thumb.parent().append('<div class="mjs-video-play-gallery mjs-i-location"></div>');
+                        }
                     }
                     $('.mjs-video-play-gallery').css({'color':'#'+color2});
-                    var tempSelector = $('#mjsThumb'+j).parent().children();
+                    var $tempSelector = $thumb.parent().children();
                     var indexOne = 1;
                 } else {
-                    if (typeof thisContainer.attr('id') !== 'undefined') {
-                        var tempSelectorID = 'mjs'+thisContainer.attr('id');
+                    if (typeof $thisContainer.attr('id') !== 'undefined') {
+                        var tempSelectorID = 'mjs'+$thisContainer.attr('id');
                     } else {
                         // random value based on absolute position of element
-                        var tempSelectorID = thisContainer.offset().left+thisContainer.offset().top;
+                        var tempSelectorID = $thisContainer.offset().left+$thisContainer.offset().top;
                     }
-                    var tempSelector = thisContainer;
+                    var $tempSelector = $thisContainer;
                     var indexOne = 0;
                 }
-                
                 // set max width and height for video content and borderWidth/borderRadius unique for each id on which magneticmediajs is fired
                 mjsGlobal['borderWidth'][tempSelectorID] = borderWidth;
                 mjsGlobal['borderRadius'][tempSelectorID] = borderRadius;
                 mjsGlobal['videoWidth'][tempSelectorID] = videoWidth;
                 mjsGlobal['videoHeight'][tempSelectorID] = videoHeight;
-                
                 // add touch support for touch device to trigger overlay content
-                tempSelector.on('touchstart', function(event) {
+                $tempSelector.on('touchstart', function(event) {
                     if ($('body').has('.mjs-fullscreen').length) {
                         return;
                     }
@@ -980,9 +941,9 @@ var Magneticmediajs = (function() {
                         $(this).off('touchend', doTouchEnd);
                     });
                 });
-                
                 // handle triggering of overlay content
-                tempSelector.on('click', {param: j}, function(event) {
+                $tempSelector.on('click', {param: j}, function(event) {
+					event.stopPropagation();
                     if ($('body').has('.mjs-fullscreen').length) {
                         return;
                     }
@@ -990,30 +951,30 @@ var Magneticmediajs = (function() {
                     setTimeout(function() {
                         mjsGlobal['timeSpacer'] = false;
                     }, 500);
-                    event.stopPropagation();
                     $('#mjs-zoom-box').remove();
-                    $('.mjs-fs-wrapper').off('mouseleave mouseenter');
                     imageOnNumber = event.data.param;
                     var mjsTitle = '';
                     $('body').append('<div class="mjs-fullscreen"></div>');
-                    $('.mjs-parent-spin').show();
-                    $('.mjs-parent-spin').addClass('mjs-do-spin');
+					var $fullscreen = $('.mjs-fullscreen');
+                    $('.mjs-parent-spin').show().addClass('mjs-do-spin');
                     _mjsColorSpin(color1,color2);
                     var backgroundR = _mjsHexToRgb("#"+background).r;
                     var backgroundG = _mjsHexToRgb("#"+background).g;
                     var backgroundB = _mjsHexToRgb("#"+background).b;
                     var voWidthViewport = $(window).width();
                     var voHeightViewport = _mjsGetAccurateHeight();
-                    $('.mjs-fullscreen').css({'width':voWidthViewport+'px', 'height':voHeightViewport+'px', 'background':'rgba('+backgroundR+','+backgroundG+','+backgroundB+','+backgroundOpacity+')'});
+                    $fullscreen.css({'width':voWidthViewport+'px', 'height':voHeightViewport+'px', 'background':'rgba('+backgroundR+','+backgroundG+','+backgroundB+','+backgroundOpacity+')'});
                     var uniqueId = '';
                     if (nbOfData > 1 && multiple) {
                         uniqueId = 'mjs'+imageOnNumber;
                     } else {
                         uniqueId = tempSelectorID;
                     }
-                    $('.mjs-fullscreen').append('<div class="mjs-fs-wrapper" id="'+uniqueId+'"><div class="mjs-close mjs-icons mjs-i-cancel"></div></div>');
+                    $fullscreen.append('<div class="mjs-fs-wrapper" id="'+uniqueId+'"><div class="mjs-close mjs-icons mjs-i-cancel"></div></div>');
+					var $wrapper = $('.mjs-fs-wrapper');
+					$wrapper.off('mouseleave mouseenter');
                     if (sharing) {
-                        $('.mjs-fs-wrapper').append('<div class="mjs-facebook mjs-icons mjs-i-facebook-squared"></div><div class="mjs-twitter mjs-icons mjs-i-twitter-squared"></div>');
+                        $wrapper.append('<div class="mjs-facebook mjs-icons mjs-i-facebook-squared"></div><div class="mjs-twitter mjs-icons mjs-i-twitter-squared"></div>');
                     }
                     if (displayTitle) {
                         if ((data[imageOnNumber][0] === 'image' || data[imageOnNumber][0] === 'instagram') && !gallery && (typeof data[imageOnNumber][2] !== 'undefined')) {
@@ -1023,7 +984,6 @@ var Magneticmediajs = (function() {
                         }
                     }
                     _mjsSetItemOn(data[imageOnNumber][0]);
-                    
                     // current content in the data array is an image
                     if (data[imageOnNumber][0] === 'image') {
                         _mjsLoadImage(data[imageOnNumber][indexOne+1],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
@@ -1055,16 +1015,21 @@ var Magneticmediajs = (function() {
     
                     //previous / next button for gallery
                     if (nbOfData > 1 && multiple) {
-                        $('.mjs-fs-wrapper').append('<div class="mjs-previous mjs-i-left-open"></div><div class="mjs-next mjs-i-right-open"></div>');
-                        $('.mjs-next,.mjs-previous').css({'color':'#'+color2});
-                        $('.mjs-previous').on('touchstart', function(event) {
+                        $wrapper.append('<div class="mjs-previous mjs-i-left-open"></div><div class="mjs-next mjs-i-right-open"></div>');
+						var $previous = $('.mjs-previous');
+						var $next = $('.mjs-next');
+                        $previous.css({'color': '#'+color2});
+						$next.css({'color': '#'+color2});
+						// previous button
+                        $previous.on('touchstart', function(event) {
                             event.stopPropagation();
                             event.preventDefault();
                             event.target.click();
                         });
-                        $('.mjs-previous').on('click', function() {
-                            $('#mjs-zoom-box').remove();
-                            $('.mjs-fs-wrapper').off('mouseleave mouseenter');
+                        $previous.on('click', function() {
+                            $('#mjs-zoom-box').remove(); 
+							var $wrapper = $('.mjs-fs-wrapper');
+                            $wrapper.off('mouseleave mouseenter');
                             imageOnNumber--;
                             if (imageOnNumber === -1) {
                                 imageOnNumber = nbOfData-1;
@@ -1077,57 +1042,58 @@ var Magneticmediajs = (function() {
                                     mjsTitle = '';
                                 }
                             }
-                            var jToRemove;
+                            var $jToRemove;
                             if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'image') {
-                                jToRemove = $('.mjs-fs-wrapper > img');
+                                $jToRemove = $('.mjs-fs-wrapper').find('img');
                             } else if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'video') {
-                                jToRemove = $('.mjs-video-player');
+                                $jToRemove = $('.mjs-video-player');
                             } else if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'maps') {
-                                jToRemove = $('.map-area');
+                                $jToRemove = $('.map-area');
                             }
                             _mjsSetItemOn(data[imageOnNumber][0]);
                             if (data[imageOnNumber][0] === 'instagram') {
-                                jToRemove.fadeOut(200,function(){
+                                $jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][2]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);    
                                 });
                             } else if (data[imageOnNumber][0] === 'flickr') {
-                                jToRemove.fadeOut(200,function(){
+                                $jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsGetFlickrStream(data[imageOnNumber][1],data[imageOnNumber][2], imageOnNumber,'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'image') {
-                                jToRemove.fadeOut(200,function(){
+                                $jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadImage(data[imageOnNumber][2],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'video' || data[imageOnNumber][0] === 'youtube' || data[imageOnNumber][0] === 'vimeo' || data[imageOnNumber][0] === 'dailymotion') {
-                                jToRemove.fadeOut(200,function(){
+                                $jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadVideo(data[imageOnNumber][0],data[imageOnNumber][1],videoWidth,videoHeight,autoPlayVideo,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,data[imageOnNumber][1]);
                                 });
                             } else if(data[imageOnNumber][0] === 'maps'){
-                                jToRemove.fadeOut(200,function(){
+                                $jToRemove.fadeOut(200,function(){
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadMaps(color1,color2,borderWidth,borderRadius,data[imageOnNumber][2],data[imageOnNumber][3],data[imageOnNumber][4],data[imageOnNumber][5],data[imageOnNumber][6],data[imageOnNumber][7],multiple);
                                 });
                             }
-                            $('.mjs-fs-wrapper').attr('id', 'mjs'+imageOnNumber);
-                        });
-                            
-                        $('.mjs-next').on('touchstart', function(event) {
+                            $wrapper.attr('id', 'mjs'+imageOnNumber);
+                        }); 
+						// next button  
+                        $next.on('touchstart', function(event) {
                             event.stopPropagation();
                             event.preventDefault();
                             event.target.click();
                         });
-                        $('.mjs-next').on('click', function() {
+                        $next.on('click', function() {
                             $('#mjs-zoom-box').remove();
-                            $('.mjs-fs-wrapper').off('mouseleave mouseenter');
+							var $wrapper = $('.mjs-fs-wrapper');
+                            $wrapper.off('mouseleave mouseenter');
                             imageOnNumber++;
                             if (imageOnNumber === nbOfData) {
                                 imageOnNumber = 0;
@@ -1140,54 +1106,53 @@ var Magneticmediajs = (function() {
                                     mjsTitle = '';
                                 }
                             }
-                            var jToRemove;
+                            var $jToRemove;
                             if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'image') {
-                                jToRemove = $('.mjs-fs-wrapper > img');
+                                $jToRemove = $('.mjs-fs-wrapper').find('img');
                             }
                             else if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'video') {
-                                jToRemove = $('.mjs-video-player');
+                                $jToRemove = $('.mjs-video-player');
                             } else if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'maps') {
-                                jToRemove = $('.map-area');
+                                $jToRemove = $('.map-area');
                             }
                             _mjsSetItemOn(data[imageOnNumber][0]);
                             if (data[imageOnNumber][0] === 'instagram') {
-                                jToRemove.fadeOut(200, function() {
+                                $jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadImage(mjsGlobal['locationProtocol']+'//instagram.com/p/'+data[imageOnNumber][2]+'/media/?size=l',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                     
                                 });
                             } else if (data[imageOnNumber][0] === 'flickr') {
-                                jToRemove.fadeOut(200, function() {
+                                $jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2], imageOnNumber, 'big',zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'image') {
-                                jToRemove.fadeOut(200, function() {
+                                $jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadImage(data[imageOnNumber][2],zoomOn,zoomLevel,zoomType,zoomSize,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,filter);
                                 });
                             } else if (data[imageOnNumber][0] === 'video' || data[imageOnNumber][0] === 'youtube' || data[imageOnNumber][0] === 'vimeo' || data[imageOnNumber][0] === 'dailymotion'){
-                                jToRemove.fadeOut(200, function() {
+                                $jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadVideo(data[imageOnNumber][0],data[imageOnNumber][1],videoWidth,videoHeight,autoPlayVideo,displayTitle,mjsTitle,color1,color2,borderWidth,borderRadius,multiple,data[imageOnNumber][1]);
                                 });
                             } else if(data[imageOnNumber][0] === 'maps') {
-                                jToRemove.fadeOut(200, function() {
+                                $jToRemove.fadeOut(200, function() {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsLoadMaps(color1,color2,borderWidth,borderRadius,data[imageOnNumber][2],data[imageOnNumber][3],data[imageOnNumber][4],data[imageOnNumber][5],data[imageOnNumber][6],data[imageOnNumber][7],multiple);
                                 });
                             }
-                            $('.mjs-fs-wrapper').attr('id', 'mjs'+imageOnNumber);
+                            $wrapper.attr('id', 'mjs'+imageOnNumber);
                         });        
                     } 
-                    
                     // closing the on stage media 
-                    $('.mjs-fullscreen').on('touchstart', function(event) {
+                    $fullscreen.on('touchstart', function(event) {
                         if (!mjsGlobal['timeSpacer']) {
                             event.stopPropagation();
                             event.preventDefault();
@@ -1217,15 +1182,14 @@ var Magneticmediajs = (function() {
                             event.preventDefault();
                         }
                     });
-                    $('.mjs-fullscreen').on('click', function(event) {
+                    $fullscreen.on('click', function(event) {
                         if (!mjsGlobal['timeSpacer']) {
                             var target = $(event.target);
                             if (typeof target[0].src !== 'undefined' && (target[0].src.indexOf('maps.gstatic.com') > -1)) {
                             } else if (!target.parents('.mjs-fs-wrapper').length || target.hasClass('mjs-close')) { 
-                                $('.mjs-fullscreen').fadeOut(300,function(){
+                               $(this).fadeOut(300,function(){
                                     $(this).remove();
-									$('.mjs-parent-spin').removeClass('mjs-do-spin');
-                                    $('.mjs-parent-spin').hide();
+									$('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
                                     _mjsUnsetItemOn(mjsGlobal);
                                     $(document).trigger('mjsMediaOffStage');
                                 });
@@ -1238,9 +1202,9 @@ var Magneticmediajs = (function() {
                         }
                     });    
                 });
+				// add deeplinking
                 _mjsDirectAccess(tempSelectorID, gallery); 
-                
-                // add twitter and facebook sharing buttons
+                // add twitter and facebook sharing buttons (delegated events)
                 if (sharing) {
                     $(document).on('touchstart', '#'+tempSelectorID+' > .mjs-facebook', function(event) {
                         event.stopPropagation();
@@ -1266,13 +1230,11 @@ var Magneticmediajs = (function() {
                     });
                 }
             }
-
-            
-            // render gallery when all content is loaded
+            // render gallery/e-commerce when all content is loaded
             if (gallery) {
                 var thumbTimer = setInterval(function(){
                     if (thumbLoadCount >= nbOfData - mjsGlobal['loadError']) {    
-                        thisContainer.show(0, function() {
+                        $thisContainer.show(0, function() {
                             if (ecommerce) {
                                 var colHeight = $('#mjs-ecommerce-col').height();
                                 if (colHeight >  $('.mjs-ecommerce-main').height()) {
@@ -1284,16 +1246,15 @@ var Magneticmediajs = (function() {
                         clearInterval(thumbTimer);
                     }
                 }, 100);
-                $('.mjs-generic').css({'border':thumbnailBorderWidth+'px solid #'+thumbnailBorderColor,'-webkit-border-radius':thumbnailBorderRadius+'px','-moz-border-radius':thumbnailBorderRadius+'px','border-radius':thumbnailBorderRadius+'px','padding':thumbnailPadding+'px'});
-                $('.mjs-generic img').css({'max-height':galleryMaxThumbnailHeight+'px','background':'#'+color1,'border':'none'});   
+                $('.mjs-generic').css({'border': thumbnailBorderWidth+'px solid #'+thumbnailBorderColor, '-webkit-border-radius': thumbnailBorderRadius+'px','-moz-border-radius': thumbnailBorderRadius+'px', 'border-radius': thumbnailBorderRadius+'px', 'padding': thumbnailPadding+'px'});
+                $('.mjs-generic').find('img').css({'max-height': galleryMaxThumbnailHeight+'px', 'background': '#'+color1, 'border': 'none'});   
             }
-            
             // add keyboard control
             if (!multiple) {
-                thisContainer.on('focusout', function() {
+                $thisContainer.on('focusout', function() {
                     $(document).off('keydown',_makeKeyboard);
                 });
-                thisContainer.on('focusin', function() {
+                $thisContainer.on('focusin', function() {
                     var currentItem = $(this);
                     $(document).on('keydown', {param1:currentItem}, _makeKeyboard);
                 });
@@ -1303,17 +1264,18 @@ var Magneticmediajs = (function() {
                 });
                 $('.mjs-generic').on('focusin', function() {
                     var currentItem = $(this);
-                    $(document).on('keydown', {param1:currentItem}, _makeKeyboard);
+                    $(document).on('keydown', {param1: currentItem}, _makeKeyboard);
                 });
             }
-            
             // handle responsive resizing
             var inResizing = false; 
             $(window).on('resize', function() {
                 if (!inResizing) {
                     setTimeout(function() {
-                        var width = $('.mjs-fs-wrapper').width();
-                        var height = $('.mjs-fs-wrapper').height();
+						var $wrapper = $('.mjs-fs-wrapper');
+						var $fullscreen = $('.mjs-fullscreen');
+                        var width = $wrapper.width();
+                        var height = $wrapper.height();
                         var newVoWidthViewport = $(window).width();
                         var newVoHeightViewport = _mjsGetAccurateHeight();
                         if (ecommerce) {
@@ -1327,35 +1289,35 @@ var Magneticmediajs = (function() {
                         }    
                         var contentType = '';
                         var result = [];
-                        var leftPosGallery = thisContainer.position().left;
-                        var currentId = $('.mjs-fs-wrapper').attr('id');
+                        var leftPosGallery = $thisContainer.position().left;
+                        var currentId = $wrapper.attr('id');
                         var borderWidth = mjsGlobal['borderWidth'][currentId];
                         var borderRadius = mjsGlobal['borderRadius'][currentId];
                         if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'image') {
                             contentType = 'picture';
-                            result = _mjsMakeItFit(width,height,newVoWidthViewport,newVoHeightViewport,borderWidth,borderRadius,contentType);
+                            result = _mjsMakeItFit(width, height, newVoWidthViewport, newVoHeightViewport, borderWidth, borderRadius, contentType);
                         } else if (mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'video') {
                             contentType = 'video';
-                            result = _mjsMakeItFit(width,height,newVoWidthViewport,newVoHeightViewport,borderWidth,borderRadius,contentType);
+                            result = _mjsMakeItFit(width, height, newVoWidthViewport, newVoHeightViewport, borderWidth, borderRadius, contentType);
                         } else if(mjsGlobal['itemOnStage'] && mjsGlobal['itemType'] === 'maps') {
                             contentType = 'maps';
-                            result = _mjsMakeItFit(width,height,newVoWidthViewport,newVoHeightViewport,borderWidth,borderRadius,contentType);
+                            result = _mjsMakeItFit(width, height, newVoWidthViewport, newVoHeightViewport, borderWidth, borderRadius, contentType);
                         }
                         width = result[0];
                         height = result[1];
                         var tempBorderWidth = result[2];
                         var tempBorderRadius = result[3];
-                        $('.mjs-fullscreen').css({'width':newVoWidthViewport+'px','height':newVoHeightViewport+'px'});
+                        $fullscreen.css({'width': newVoWidthViewport+'px', 'height': newVoHeightViewport+'px'});
                         if (contentType === 'maps') {
-                            $('.mjs-fs-wrapper').css({'width':width+'px', 'height':height+'px'});
+                            $wrapper.css({'width': width+'px', 'height': height+'px'});
                             google.maps.event.trigger(mjsGlobal['mapInstance'], 'resize');
                         } else {
-                            $('.mjs-fs-wrapper').css({'width':width+'px', 'height':height+'px'});
+                            $wrapper.css({'width': width+'px', 'height': height+'px'});
                             if (contentType === 'video') {
-                                $('.mjs-video-player').css({'width':width+'px', 'height':height+'px'});    
+                                $('.mjs-video-player').css({'width': width+'px', 'height': height+'px'});    
                                 var iFrameWidth = 0;
                                 var iFrameHeight = 0;
-                                var currentIdInResize = $('.mjs-fs-wrapper').attr('id');
+                                var currentIdInResize = $wrapper.prop('id');
                                 if (width > mjsGlobal['videoWidth'][currentIdInResize]) {
                                     iFrameWidth = mjsGlobal['videoWidth'][currentIdInResize];
                                 } else {
@@ -1366,12 +1328,12 @@ var Magneticmediajs = (function() {
                                 } else {
                                     iFrameHeight = height;
                                 }
-                                $('.mjs-video-player > iframe').css({'width':iFrameWidth+'px','height':iFrameHeight+'px'});    
+                                $('.mjs-video-player').find('iframe').css({'width': iFrameWidth+'px', 'height': iFrameHeight+'px'});    
                             }
                         }
-						if ($('.mjs-fullscreen > .mjs-fs-wrapper').find('#mjs-zoom-box').length > 0) {
-							$('.mjs-fullscreen').trigger('click');
-							var matchId = $('.mjs-fs-wrapper').prop('id').replace('mjs', '');
+						if ($fullscreen.find('#mjs-zoom-box').length > 0) {
+							$fullscreen.trigger('click');
+							var matchId = $wrapper.prop('id').replace('mjs', '');
 							setTimeout(function() {
 								$('#'+matchId).trigger('click');
 							}, 1000);
@@ -1386,10 +1348,11 @@ var Magneticmediajs = (function() {
         
     // API openMedia mehtod (open an item)
     Magneticmediajs.prototype.openMedia = function(itemId) { 
-        if ($('#'+itemId).hasClass('mjs-generic')) {
-            $('#'+itemId).find('img').trigger('click');
+		var $item = $('#'+itemId);
+        if ($item.hasClass('mjs-generic')) {
+            $item.find('img').trigger('click');
         } else {
-            $('#'+itemId).trigger('click');
+            $item.trigger('click');
         }
         return this;
     },

@@ -1,30 +1,31 @@
 # Magneticmediajs
 
-How it looks?
+How does it look?
 https://www.magneticmediajs.com
 
-Magneticmediajs is a JavaScript solution to display media in a stylish mobile-ready overlay fashion. It also lets you ingest content from today's most popular media platform: Youtube, Instagram, Vimeo, Flickr, Dailymotion.
+Magneticmediajs is a JavaScript and CSS solution to display media content in a stylish mobile-ready overlay fashion. It includes designs for e-commerce, media gallery and also lets you ingest content from today's most popular media platform: Youtube, Instagram, Vimeo, Flickr, Dailymotion. 
 
-Magneticmediajs is built with JavaScript prototype pseudo class system, jQuery for DOM manipulation, CSS3 with graceful fallback. It comes with a documented API to control your media and provides callback capabilities. 
-Magneticmediajs completely embraces the mobile experience: it supports various touch events, including swipes between media items, and scales well from mobile devices (iOS, Android ...) to large computer screens. Plus it has some super cool design effects for images including a magnifying glass and 8 filters (sepia, grayscale, saturate ...).
+Magneticmediajs is built with a JavaScript pseudo-class model for easier work of extension, jQuery for DOM manipulation and Less CSS3 with progressive enhancement. It comes with a documented API to control your media and provides callback capabilities. Magneticmediajs completely embraces the mobile experience: it supports various touch events, including swipes between media items, and scales well from mobile devices (iOS, Android ...) to large computer screens. Plus it has some super cool design effects for images including a magnifying glass and 8 filters (sepia, grayscale, saturate ...).
 
-Magneticmediajs comes with a custom license, in a nutshell:
-* You are free to use Magneticmediajs for non-commercial use given the copyright notice present in each file part of Magneticmediajs is included in all copies or substantial portions of the software and associated files
-* To use Magneticmediajs for commercial purposes you need to purchase one of the licenses [here](https://www.magneticmediajs.com/#licensing)
+Magneticmediajs is an open source project released under MIT License.
 
 ## Documentation
 
 https://www.magneticmediajs.com/documentation.html
 
-## Release history
+## Release History
 
 https://www.magneticmediajs.com/documentation.html#version
 
-## License information
+## License Information
 
-https://www.magneticmediajs.com/terms-of-service.html
+https://www.magneticmediajs.com/mit-license.html
 
-Copyright (c) 2014 Arnaud Leyder at [Leyder Consulting](https://www.leyder-consulting.com)
+## Buy Me A Coffee
+
+https://www.magneticmediajs.com/#buy-me-a-coffee
+
+Copyright (c) 2014-2015 Arnaud Leyder | [Leyder Consulting](https://www.leyder-consulting.com)
 
 
 > Enjoy Magneticmediajs! 
