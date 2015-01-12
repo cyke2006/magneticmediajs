@@ -4,7 +4,7 @@
  * Released under MIT license: https://www.magneticmediajs.com/mit-license.html
  * For contact information please visit https://www.magneticmediajs.com/about.html
  */
-
+    
 /**** Global object for state variables ****/
 var mjsGlobal = {
     itemOnStage: false,
@@ -55,11 +55,11 @@ var Magneticmediajs = (function() {
             ecommerce: false,
             showIcons:true,
             galleryMaxThumbnailHeight: 150,
-			thumbnailPadding: 0,
-			thumbnailBorderWidth: 0,
-			thumbnailBorderRadius: 0,
-			thumbnailBorderColor: 'BBB',
-			filter: 'none',
+            thumbnailPadding: 0,
+            thumbnailBorderWidth: 0,
+            thumbnailBorderRadius: 0,
+            thumbnailBorderColor: 'BBB',
+            filter: 'none',
             onMjsMediaOnStage: function(){},
             onMjsMediaOffStage: function(){}
         };
@@ -213,7 +213,7 @@ var Magneticmediajs = (function() {
         var newImage = new Image();
         newImage.id = 'mjs-img-full';
         $(newImage).appendTo('.mjs-fs-wrapper');
-		var $wrapper = $('.mjs-fs-wrapper');
+        var $wrapper = $('.mjs-fs-wrapper');
         $(newImage).on('load', function() {
             var newSize = _mjsGetNaturalSize(newImage);
             var width = newSize[0];
@@ -232,9 +232,9 @@ var Magneticmediajs = (function() {
                 $wrapper.css({'margin-top':'-15px'});
             }
             _mjsColorIt(color1, color2, tempBorderWidth, tempBorderRadius);
-			if (filter !== 'none') {
-				$wrapper.find('img').addClass('mjs-'+filter);
-			}
+            if (filter !== 'none') {
+                $wrapper.find('img').addClass('mjs-'+filter);
+            }
             $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
             _adjustRoundBorder(tempBorderWidth, tempBorderRadius);
             $(document).trigger('mjsMediaOnStage');
@@ -270,7 +270,7 @@ var Magneticmediajs = (function() {
          });
     };
     var _mjsLoadMapsScript = function(key) {
-		var $maps = $('#mjsMaps');
+        var $maps = $('#mjsMaps');
         $maps.next().remove();
         $maps.remove();
         var script = document.createElement('script');
@@ -571,7 +571,7 @@ var Magneticmediajs = (function() {
     };
     var _mjsRunZoomProcess = function(src, zoomLevel, zoomType, zoomSize){
         var mjsZoomOnScreen = false;
-		var $wrapper = $('.mjs-fs-wrapper');
+        var $wrapper = $('.mjs-fs-wrapper');
         var widthWrapper = $wrapper.width();
         var heightWrapper = $wrapper.height();
         var leftWrapper = $wrapper.offset().left;
@@ -594,7 +594,7 @@ var Magneticmediajs = (function() {
         $wrapper.on('mouseenter',function(event, thisEvent) {
             if (!mjsZoomOnScreen) {
                 $('<div id="mjs-zoom-box"></div>').hide().appendTo($(this));
-				var $zoomBox = $('#mjs-zoom-box');
+                var $zoomBox = $('#mjs-zoom-box');
                 $zoomBox.css({'background-image':'url("'+src+'")'}).fadeIn('fast');
                 mjsZoomOnScreen = true;
                 var currentViewportWidth = $(window).width();
@@ -641,7 +641,7 @@ var Magneticmediajs = (function() {
             var c1 = color1;
             var c2 = color2;
         }
-		var $wrapper = $('.mjs-fs-wrapper');
+        var $wrapper = $('.mjs-fs-wrapper');
         $wrapper.css({'border-radius':borderRadius+'px'});
         if ($wrapper.find('#mjs-img-full').length > 0) {
             $wrapper.find('#mjs-img-full').css({'border':borderWidth+'px solid #'+color1, 'border-radius':borderRadius+'px'});
@@ -728,7 +728,7 @@ var Magneticmediajs = (function() {
         }
     }
     
-	
+    
     /** public methods **/
     // init and DOM manipulation
     Magneticmediajs.prototype.init = function() {
@@ -739,7 +739,7 @@ var Magneticmediajs = (function() {
         }
         var inputSettings = this.settings;
         var settings = this._defaults;
-		// validate input values
+        // validate input values
         for (var properties in settings) {
             if (typeof inputSettings[properties] !== "undefined") {
                 if (typeof inputSettings[properties] !== typeof settings[properties]) {
@@ -775,10 +775,10 @@ var Magneticmediajs = (function() {
         }  
         var gallery = settings.gallery;
         var galleryMaxThumbnailHeight = settings.galleryMaxThumbnailHeight;
-		var thumbnailPadding = settings.thumbnailPadding;
-		var thumbnailBorderWidth = settings.thumbnailBorderWidth;
-		var thumbnailBorderRadius = settings.thumbnailBorderRadius;
-		var thumbnailBorderColor = settings.thumbnailBorderColor; 
+        var thumbnailPadding = settings.thumbnailPadding;
+        var thumbnailBorderWidth = settings.thumbnailBorderWidth;
+        var thumbnailBorderRadius = settings.thumbnailBorderRadius;
+        var thumbnailBorderColor = settings.thumbnailBorderColor; 
         var videoWidth = settings.videoWidth;
         var videoHeight = settings.videoHeight;
         var autoPlayVideo = settings.autoPlayVideo;
@@ -794,7 +794,7 @@ var Magneticmediajs = (function() {
         var displayTitle = settings.displayTitle;
         var color1 = settings.color1;
         var color2 = settings.color2;
-		var filter = settings.filter;
+        var filter = settings.filter;
         var borderWidth = settings.borderWidth;
         if (borderWidth > 20) {
             borderWidth = 20;
@@ -828,7 +828,7 @@ var Magneticmediajs = (function() {
         var percentPerImage = 100/nbOfData;
         _mjsGetLocationProtocol();
         // loop for multiple separated elements submitted  new Magneticmediajs('#id, #id2, .class1' ...);
-		var elementsLength = elements.length;
+        var elementsLength = elements.length;
         for (var i = 0; i < elementsLength; i++) {
             var $thisContainer = $($.trim(elements[i]));
             if (!multiple) {
@@ -870,7 +870,7 @@ var Magneticmediajs = (function() {
                     } else {
                     $thisContainer.append('<div class="mjs-generic" tabindex="0"><img id="mjsThumb'+j+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /></div>');
                     }
-					var $thumb = $('#mjsThumb'+j) 
+                    var $thumb = $('#mjsThumb'+j) 
                     $thumb.on('error', {param: j}, function(event) {
                         var number = event.data.param;
                         $('#mjsThumb'+number).parent().remove();
@@ -943,7 +943,7 @@ var Magneticmediajs = (function() {
                 });
                 // handle triggering of overlay content
                 $tempSelector.on('click', {param: j}, function(event) {
-					event.stopPropagation();
+                    event.stopPropagation();
                     if ($('body').has('.mjs-fullscreen').length) {
                         return;
                     }
@@ -955,7 +955,7 @@ var Magneticmediajs = (function() {
                     imageOnNumber = event.data.param;
                     var mjsTitle = '';
                     $('body').append('<div class="mjs-fullscreen"></div>');
-					var $fullscreen = $('.mjs-fullscreen');
+                    var $fullscreen = $('.mjs-fullscreen');
                     $('.mjs-parent-spin').show().addClass('mjs-do-spin');
                     _mjsColorSpin(color1,color2);
                     var backgroundR = _mjsHexToRgb("#"+background).r;
@@ -971,8 +971,8 @@ var Magneticmediajs = (function() {
                         uniqueId = tempSelectorID;
                     }
                     $fullscreen.append('<div class="mjs-fs-wrapper" id="'+uniqueId+'"><div class="mjs-close mjs-icons mjs-i-cancel"></div></div>');
-					var $wrapper = $('.mjs-fs-wrapper');
-					$wrapper.off('mouseleave mouseenter');
+                    var $wrapper = $('.mjs-fs-wrapper');
+                    $wrapper.off('mouseleave mouseenter');
                     if (sharing) {
                         $wrapper.append('<div class="mjs-facebook mjs-icons mjs-i-facebook-squared"></div><div class="mjs-twitter mjs-icons mjs-i-twitter-squared"></div>');
                     }
@@ -1016,11 +1016,11 @@ var Magneticmediajs = (function() {
                     //previous / next button for gallery
                     if (nbOfData > 1 && multiple) {
                         $wrapper.append('<div class="mjs-previous mjs-i-left-open"></div><div class="mjs-next mjs-i-right-open"></div>');
-						var $previous = $('.mjs-previous');
-						var $next = $('.mjs-next');
+                        var $previous = $('.mjs-previous');
+                        var $next = $('.mjs-next');
                         $previous.css({'color': '#'+color2});
-						$next.css({'color': '#'+color2});
-						// previous button
+                        $next.css({'color': '#'+color2});
+                        // previous button
                         $previous.on('touchstart', function(event) {
                             event.stopPropagation();
                             event.preventDefault();
@@ -1028,7 +1028,7 @@ var Magneticmediajs = (function() {
                         });
                         $previous.on('click', function() {
                             $('#mjs-zoom-box').remove(); 
-							var $wrapper = $('.mjs-fs-wrapper');
+                            var $wrapper = $('.mjs-fs-wrapper');
                             $wrapper.off('mouseleave mouseenter');
                             imageOnNumber--;
                             if (imageOnNumber === -1) {
@@ -1084,7 +1084,7 @@ var Magneticmediajs = (function() {
                             }
                             $wrapper.attr('id', 'mjs'+imageOnNumber);
                         }); 
-						// next button  
+                        // next button  
                         $next.on('touchstart', function(event) {
                             event.stopPropagation();
                             event.preventDefault();
@@ -1092,7 +1092,7 @@ var Magneticmediajs = (function() {
                         });
                         $next.on('click', function() {
                             $('#mjs-zoom-box').remove();
-							var $wrapper = $('.mjs-fs-wrapper');
+                            var $wrapper = $('.mjs-fs-wrapper');
                             $wrapper.off('mouseleave mouseenter');
                             imageOnNumber++;
                             if (imageOnNumber === nbOfData) {
@@ -1189,7 +1189,7 @@ var Magneticmediajs = (function() {
                             } else if (!target.parents('.mjs-fs-wrapper').length || target.hasClass('mjs-close')) { 
                                $(this).fadeOut(300,function(){
                                     $(this).remove();
-									$('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
+                                    $('.mjs-parent-spin').removeClass('mjs-do-spin').hide();
                                     _mjsUnsetItemOn(mjsGlobal);
                                     $(document).trigger('mjsMediaOffStage');
                                 });
@@ -1202,7 +1202,7 @@ var Magneticmediajs = (function() {
                         }
                     });    
                 });
-				// add deeplinking
+                // add deeplinking
                 _mjsDirectAccess(tempSelectorID, gallery); 
                 // add twitter and facebook sharing buttons (delegated events)
                 if (sharing) {
@@ -1272,8 +1272,8 @@ var Magneticmediajs = (function() {
             $(window).on('resize', function() {
                 if (!inResizing) {
                     setTimeout(function() {
-						var $wrapper = $('.mjs-fs-wrapper');
-						var $fullscreen = $('.mjs-fullscreen');
+                        var $wrapper = $('.mjs-fs-wrapper');
+                        var $fullscreen = $('.mjs-fullscreen');
                         var width = $wrapper.width();
                         var height = $wrapper.height();
                         var newVoWidthViewport = $(window).width();
@@ -1331,13 +1331,13 @@ var Magneticmediajs = (function() {
                                 $('.mjs-video-player').find('iframe').css({'width': iFrameWidth+'px', 'height': iFrameHeight+'px'});    
                             }
                         }
-						if ($fullscreen.find('#mjs-zoom-box').length > 0) {
-							$fullscreen.trigger('click');
-							var matchId = $wrapper.prop('id').replace('mjs', '');
-							setTimeout(function() {
-								$('#'+matchId).trigger('click');
-							}, 1000);
-						}
+                        if ($fullscreen.find('#mjs-zoom-box').length > 0) {
+                            $fullscreen.trigger('click');
+                            var matchId = $wrapper.prop('id').replace('mjs', '');
+                            setTimeout(function() {
+                                $('#'+matchId).trigger('click');
+                            }, 1000);
+                        }
                         inResizing = false;
                     },100);
                     inResizing = true;
@@ -1348,7 +1348,7 @@ var Magneticmediajs = (function() {
         
     // API openMedia mehtod (open an item)
     Magneticmediajs.prototype.openMedia = function(itemId) { 
-		var $item = $('#'+itemId);
+        var $item = $('#'+itemId);
         if ($item.hasClass('mjs-generic')) {
             $item.find('img').trigger('click');
         } else {
