@@ -23,7 +23,7 @@ https://www.magneticmediajs.com/mit-license.html
 
 ## Buy Me A Coffee
 
-https://www.magneticmediajs.com/#buy-me-a-coffee
+You can tip me on [Gratipay](https://gratipay.com/arnaudleyder/) if you like Magneticmediajs.
 
 Copyright (c) 2014-2015 Arnaud Leyder | [Leyder Consulting](https://www.leyder-consulting.com)
 
