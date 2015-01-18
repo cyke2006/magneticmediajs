@@ -66,7 +66,7 @@ var Magneticmediajs = (function() {
             facebookID: 261636627358702,
             gallery: false,
             ecommerce: false,
-            showIcons:true,
+            showIcons: true,
             galleryMaxThumbnailHeight: 150,
             thumbnailPadding: 0,
             thumbnailBorderWidth: 0,
