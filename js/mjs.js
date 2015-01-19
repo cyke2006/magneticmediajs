@@ -1,5 +1,5 @@
 /* 
- * Magneticmediajs 1.3.1 | https://www.magneticmediajs.com
+ * Magneticmediajs 1.3.2 | https://www.magneticmediajs.com
  * Copyright (c) 2014-2015 Arnaud Leyder | Leyder Consulting | https://www.leyder-consulting.com
  * Released under MIT license https://www.magneticmediajs.com/mit-license.html
  * For contact information please visit https://www.magneticmediajs.com/about.html
@@ -1584,9 +1584,9 @@ var Magneticmediajs = (function() {
                                     event.target.click();
                                 } else {
                                     if (mjsGlobal['hasSwipeLeft']) {
-                                        $('.mjs-next').trigger('click');
-                                    } else if (mjsGlobal['hasSwipeRight']) {
                                         $('.mjs-previous').trigger('click');
+                                    } else if (mjsGlobal['hasSwipeRight']) {
+                                        $('.mjs-next').trigger('click');
                                     }
                                 }
                                 $(this).off('touchend', doTouchEnd2);
