@@ -1,5 +1,5 @@
 /* 
- * Magneticmediajs 1.3.3 | https://www.magneticmediajs.com
+ * Magneticmediajs 1.3.4 | https://www.magneticmediajs.com
  * Copyright (c) 2014-2015 Arnaud Leyder | Leyder Consulting | https://www.leyder-consulting.com
  * Released under MIT license https://www.magneticmediajs.com/mit-license.html
  * For contact information please visit https://www.magneticmediajs.com/about.html
@@ -554,7 +554,7 @@ var Magneticmediajs = (function () {
      * @param {string} thumbnailSize - the desired thumbnail size
      * @param {number} i - the current index in the gallery or ecommerce
      */
-    var _getYTThumbnail = function (videoId, thumbnailSize, i, thisT) {
+    var _getYTThumbnail = function (videoId, thumbnailSize, i, j, thisT) {
         var ytThumbQ = 'mqdefault';
         if (thumbnailSize === 'small') {
             ytThumbQ = 'default';
@@ -565,7 +565,7 @@ var Magneticmediajs = (function () {
         }
         var src = mjsGlobal['locationProtocol'] + '//img.youtube.com/vi/' + videoId +
             '/' + ytThumbQ + '.jpg';
-        $(thisT.container).find('.mjsThumb' + i).prop('src', src);
+        $(thisT.container[i]).find('.mjsThumb' + j).prop('src', src);
     };
     /**
      * Get Vimeo thumbnail (gallery or ecommerce)
@@ -574,7 +574,7 @@ var Magneticmediajs = (function () {
      * @param {string} thumbnailSize - the desired thumbnail size
      * @param {number} i - the current index in the gallery or ecommerce
      */
-    var _getVimeoThumbnail = function (videoId, thumbnailSize, i, thisT) {
+    var _getVimeoThumbnail = function (videoId, thumbnailSize, i, j, thisT) {
         $.ajax({
             url: 'https://www.vimeo.com/api/v2/video/' + videoId + '.json?callback=?',
             dataType: "jsonp",
@@ -587,14 +587,14 @@ var Magneticmediajs = (function () {
                     mjsGlobal['locationProtocol'] === 'https:') {
                     thumbnailSrc = thumbnailSrc.replace('http:', mjsGlobal['locationProtocol']);
                 }
-                $(thisT.container).find('.mjsThumb' + i).prop('src', thumbnailSrc);
+                $(thisT.container[i]).find('.mjsThumb' + j).prop('src', thumbnailSrc);
             } else if (thumbnailSize === 'medium') {
                 thumbnailSrc = dataRes[0].thumbnail_medium;
                 if (thumbnailSrc.indexOf('http:') > -1 &&
                     mjsGlobal['locationProtocol'] === 'https:') {
                     thumbnailSrc = thumbnailSrc.replace('http:', mjsGlobal['locationProtocol']);
                 }
-                $(thisT.container).find('.mjsThumb' + i).prop('src', thumbnailSrc);
+                $(thisT.container[i]).find('.mjsThumb' + j).prop('src', thumbnailSrc);
 
             } else {
                 thumbnailSrc = dataRes[0].thumbnail_large;
@@ -602,10 +602,10 @@ var Magneticmediajs = (function () {
                     mjsGlobal['locationProtocol'] === 'https:') {
                     thumbnailSrc = thumbnailSrc.replace('http:', mjsGlobal['locationProtocol']);
                 }
-                $(thisT.container).find('.mjsThumb' + i).prop('src', thumbnailSrc);
+                $(thisT.container[i]).find('.mjsThumb' + j).prop('src', thumbnailSrc);
             }
         }).fail(function () {
-            $(thisT.container).find('.mjsThumb' + i).parent().remove();
+            $(thisT.container[i]).find('.mjsThumb' + j).parent().remove();
             thisT.loadErrors = thisT.loadErrors + 1;
         });
     };
@@ -616,7 +616,7 @@ var Magneticmediajs = (function () {
      * @param {string} thumbnailSize - the desired thumbnail size
      * @param {number} i - the current index in the gallery or ecommerce
      */
-    var _getDMThumbnail = function (videoId, thumbnailSize, i, thisT) {
+    var _getDMThumbnail = function (videoId, thumbnailSize, i, j, thisT) {
         var tbOut = '360';
         if (thumbnailSize === 'small') {
             tbOut = '180';
@@ -628,10 +628,10 @@ var Magneticmediajs = (function () {
         $.getJSON('https://api.dailymotion.com/video/' + videoId + '?fields=thumbnail_' + tbOut +
             '_url', function (dataRes) {
                 var src = dataRes['thumbnail_' + tbOut + '_url'];
-                $(thisT.container).find('.mjsThumb' + i).prop('src', src);
+                $(thisT.container[i]).find('.mjsThumb' + j).prop('src', src);
 
             }).fail(function () {
-            $(thisT.container).find('.mjsThumb' + i).parent().remove();
+            $(thisT.container[i]).find('.mjsThumb' + j).parent().remove();
             thisT.loadErrors = thisT.loadErrors + 1;
         });
     };
@@ -675,7 +675,7 @@ var Magneticmediajs = (function () {
      * @param {number} borderRadius
      * @param {string} filter - what is the requested filter for this image
      */
-    var _mjsGetFlickrStream = function (user_id, title, i, type, zoomOn, zoomLevel, zoomType,
+    var _mjsGetFlickrStream = function (user_id, title, i, j, type, zoomOn, zoomLevel, zoomType,
         zoomSize, displayTitle, mjsTitle, color1, color2,
         borderWidth, borderRadius, filter, thisT) {
         var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&' +
@@ -693,7 +693,7 @@ var Magneticmediajs = (function () {
                         srcThumb = mjsGlobal['locationProtocol'] +
                             "//farm" + item.farm + ".static.flickr.com/" + item.server +
                             "/" + item.id + "_" + item.secret + "_n.jpg";
-                        $(thisT.container).find('.mjsThumb' + i).prop('src', srcThumb);
+                        $(thisT.container[i]).find('.mjsThumb' + j).prop('src', srcThumb);
                     } else {
                         src = mjsGlobal['locationProtocol'] + "//farm" + item.farm +
                             ".static.flickr.com/" + item.server + "/" + item.id +
@@ -704,7 +704,7 @@ var Magneticmediajs = (function () {
                 });
             } else {
                 if (type === 'thumbnail') {
-                    $(thisT.container).find('.mjsThumb' + i).parent().remove();
+                    $(thisT.container[i]).find('.mjsThumb' + j).parent().remove();
                     thisT.loadErrors = thisT.loadErrors + 1;
                 } else {
                     $('.mjs-fullscreen').remove();
@@ -714,7 +714,7 @@ var Magneticmediajs = (function () {
             }
         }).fail(function () {
             if (type === 'thumbnail') {
-                $(thisT.container).find('.mjsThumb' + i).parent().remove();
+                $(thisT.container[i]).find('.mjsThumb' + j).parent().remove();
                 thisT.loadErrors = thisT.loadErrors + 1;
             } else {
                 $('.mjs-fullscreen').remove();
@@ -1000,7 +1000,6 @@ var Magneticmediajs = (function () {
      * @param {string} gallery - is it a gallery (does not apply to ecommerce)
      */
     var _mjsDirectAccess = function (elmentid, gallery, $thisContainer) {
-        console.log(elmentid);
         var urlWithQuery = $(window.location).attr('search');
         urlWithQuery = urlWithQuery.substr(1).split('&');
         for (var k = 0, len = urlWithQuery.length; k < len; k++) {
@@ -1156,8 +1155,10 @@ var Magneticmediajs = (function () {
         var thisT = this;
         // Loop for multiple separated elements submitted new Magneticmediajs('#id, .class1' ...);
         for (var i = 0, len = elements.length; i < len; i++) {
-            this.container = $.trim(elements[i]);
-            var $thisContainer = $(this.container);
+            this.container = [];
+            this.container[i] = $.trim(elements[i]);
+            var $thisContainer = $(this.container[i]);
+            console.log($($.trim(elements[i])));
 
             if (!gallery) {
                 $thisContainer.attr('tabindex', '0');
@@ -1186,14 +1187,14 @@ var Magneticmediajs = (function () {
                 // Render gallery thumbnails
                 if (gallery) {
                     var tempSelectorID = 'mjs' + j;
-                    var thisId = $(thisT.container).prop('id');
+                    var thisId = $thisContainer.prop('id');
                     if (this.ecommerce) {
                         if (j === 0) {
                             $thisContainer.addClass('mjs-ecommerce-gallery');
                             $thisContainer.append('<div class="mjs-generic mjs-ecommerce-main" ' +
                                 'tabindex="0"><img id="' + thisId + j +
                                 '" class="mjsThumb' + j + '" src="' +
-                                'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" />' +
+                                'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D">' +
                                 '</div>');
                         } else {
                             if (j === 1) {
@@ -1203,13 +1204,13 @@ var Magneticmediajs = (function () {
                                 'mjs-ecommerce-col-img" tabindex="0"><img id="'
                                 + thisId + j + '" class="mjsThumb' + j +
                                 '" src="data:image/gif;base64,R0lGODlhAQABAAD/' +
-                                'ACwAAAAAAQABAAACADs%3D" /></div>');
+                                'ACwAAAAAAQABAAACADs%3D"></div>');
                         }
                     } else {
                         $thisContainer.append('<div class="mjs-generic" tabindex="0">' +
                             '<img id="' + thisId + j +
                             '" class="mjsThumb' + j + '" ' +
-                            'src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" />' +
+                            'src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D">' +
                             '</div>');
                     }
                     var $thumb = $thisContainer.find('.mjsThumb' + j);
@@ -1225,14 +1226,14 @@ var Magneticmediajs = (function () {
                         }
                     });
                     if (data[j][0] === 'youtube') {
-                        _getYTThumbnail(data[j][1], data[j][2], j, thisT);
+                        _getYTThumbnail(data[j][1], data[j][2], i, j, thisT);
                     } else if (data[j][0] === 'vimeo') {
-                        _getVimeoThumbnail(data[j][1], data[j][2], j, thisT);
+                        _getVimeoThumbnail(data[j][1], data[j][2], i, j, thisT);
                     } else if (data[j][0] === 'dailymotion') {
-                        _getDMThumbnail(data[j][1], data[j][2], j, thisT);
+                        _getDMThumbnail(data[j][1], data[j][2], i, j, thisT);
                     } else {
                         if (data[j][0] === 'flickr') {
-                            _mjsGetFlickrStream(data[j][1], data[j][2], j, 'thumbnail', '', '',
+                            _mjsGetFlickrStream(data[j][1], data[j][2], i, j, 'thumbnail', '', '',
                                 '', '', '', '', '', '', '', '', filter, thisT);
                         } else if (data[j][0] === 'instagram') {
                             $thumb.prop('src', mjsGlobal['locationProtocol'] +
@@ -1361,7 +1362,7 @@ var Magneticmediajs = (function () {
                     // Current content in the data array is flickr content
                     else if (data[imageOnNumber][0] === 'flickr') {
                         _mjsGetFlickrStream(data[imageOnNumber][1], data[imageOnNumber][2],
-                            imageOnNumber, 'big', zoomOn, zoomLevel, zoomType,
+                            i, imageOnNumber, 'big', zoomOn, zoomLevel, zoomType,
                             zoomSize, displayTitle, mjsTitle, color1, color2,
                             borderWidth, borderRadius, filter, '');
                     }
@@ -1460,7 +1461,7 @@ var Magneticmediajs = (function () {
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsGetFlickrStream(data[imageOnNumber][1],
                                         data[imageOnNumber][2],
-                                        imageOnNumber, 'big', zoomOn, zoomLevel,
+                                        i, imageOnNumber, 'big', zoomOn, zoomLevel,
                                         zoomType, zoomSize, displayTitle, mjsTitle,
                                         color1, color2, borderWidth, borderRadius,
                                         filter, '');
@@ -1550,7 +1551,7 @@ var Magneticmediajs = (function () {
                                     $(this).remove();
                                     $(document).trigger('mjsMediaOffStage');
                                     _mjsGetFlickrStream(data[imageOnNumber][1],
-                                        data[imageOnNumber][2], imageOnNumber,
+                                        data[imageOnNumber][2], i, imageOnNumber,
                                         'big', zoomOn, zoomLevel, zoomType,
                                         zoomSize, displayTitle, mjsTitle, color1,
                                         color2, borderWidth, borderRadius, filter, '');
@@ -1704,21 +1705,23 @@ var Magneticmediajs = (function () {
                         clearInterval(thumbTimer);
                     }
                 }, 150, $thisContainer);
-                $thisContainer.find('.mjs-generic').css({'border': thumbnailBorderWidth + 'px solid #' +
-                        thumbnailBorderColor,
+                $thisContainer.find('.mjs-generic').css({
+                    'border': thumbnailBorderWidth + 'px solid #' + thumbnailBorderColor,
                     '-webkit-border-radius': thumbnailBorderRadius + 'px',
                     '-moz-border-radius': thumbnailBorderRadius + 'px',
                     'border-radius': thumbnailBorderRadius + 'px',
-                    'padding': thumbnailPadding + 'px'});
-                $thisContainer.find('.mjs-generic').find('img').css({'max-height': galleryMaxThumbnailHeight + 'px',
+                    'padding': thumbnailPadding + 'px'
+                });
+                $thisContainer.find('.mjs-generic').find('img').css({
+                    'max-height': galleryMaxThumbnailHeight + 'px',
                     'background': '#' + color1,
-                    'border': 'none'});
+                    'border': 'none'
+                });
             }
             // Add keyboard control
             if (!gallery) {
                 $thisContainer.on('focusout', function () {
                     $(document).off('keydown', _makeKeyboard);
-                    $thisContainer.removeClass('mjs-focus');
                 });
                 $thisContainer.on('focusin', function () {
                     var currentItem = $(this);
@@ -1727,23 +1730,12 @@ var Magneticmediajs = (function () {
             } else {
                 $thisContainer.find('.mjs-generic').on('focusout', function () {
                     $(document).off('keydown', _makeKeyboard);
-                    $thisContainer.find('.mjs-generic').removeClass('mjs-focus');
                 });
                 $thisContainer.find('.mjs-generic').on('focusin', function () {
                     var currentItem = $(this);
                     $(document).on('keydown', {param1: currentItem}, _makeKeyboard);
                 });
             }
-            $(window).keyup(function (e) {
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code === 9) {
-                    if ($(e.target).find('.mjs-generic').length) {
-                        $(e.target).find('.mjs-generic').addClass('mjs-focus');
-                    } else if ($(e.target).length) {
-                        $(e.target).addClass('mjs-focus');
-                    }
-                }
-            });
         }
         // Handle responsive resizing specific to ecommerce layout
         if (thisT.ecommerce) {
