@@ -36,7 +36,6 @@
     "ignore": [
         "**/.*",
         "node_modules",
-        "dist",
         "src/img",
         "src/*.html",
         "bower_components",
