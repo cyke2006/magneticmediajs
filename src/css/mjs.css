@@ -322,15 +322,15 @@ body {
 /* fonts and icons CSS layout */
 @font-face {
   font-family: 'mjsfont';
-  src: url('font/mjsfont.eot?53563043');
-  src: url('font/mjsfont.eot?53563043#iefix') format('embedded-opentype'), url('font/mjsfont.woff?53563043') format('woff'), url('font/mjsfont.ttf?53563043') format('truetype'), url('font/mjsfont.svg?53563043#mjsfont') format('svg');
+  src: url('fonts/mjsfont.eot?53563043');
+  src: url('fonts/mjsfont.eot?53563043#iefix') format('embedded-opentype'), url('fonts/mjsfont.woff?53563043') format('woff'), url('fonts/mjsfont.ttf?53563043') format('truetype'), url('fonts/mjsfont.svg?53563043#mjsfont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   @font-face {
     font-family: 'mjsfont';
-    src: url('font/mjsfont.svg?53563043#mjsfont') format('svg');
+    src: url('fonts/mjsfont.svg?53563043#mjsfont') format('svg');
   }
 }
 [class^="mjs-i-"]:before,

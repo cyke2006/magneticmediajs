@@ -1,0 +1,42 @@
+{
+    "name": "magneticmediajs",
+    "version": "1.3.4",
+    "homepage": "https://www.magneticmediajs.com",
+    "authors": [
+        "Arnaud Leyder <arnaud@leyder-consulting.com>"
+    ],
+    "description": "JavaScript and CSS to nicely display media content",
+    "main": [
+        "src/css/mjs.less",
+        "src/css/mjs.css",
+        "src/css/fonts/mjsfont.eot",
+        "src/css/fonts/mjsfont.svg",
+        "src/css/fonts/mjsfont.ttf",
+        "src/css/fonts/mjsfont.woff",
+        "src/js/mjs.js",
+        "src/flash/StrobeMediaPlayback.swf"
+    ],
+    "moduleType": [
+        "globals"
+    ],
+    "keywords": [
+        "css",
+        "js",
+        "less",
+        "responsive",
+        "front-end",
+        "media",
+        "video",
+        "image",
+        "maps",
+        "web"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}
