@@ -19,6 +19,8 @@ Magneticmediajs is a JavaScript and CSS solution to display media content in a s
 * Colorful and easily customizable
 * Deeplinking (one item = one URL), social media sharing, error management, multiple instances support
 * Keyboard control
+* Documentation and JSDoc 3 commented sources
+
 
 ## Install 
 
