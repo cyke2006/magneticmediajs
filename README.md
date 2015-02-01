@@ -5,6 +5,7 @@ How does it look? :arrow_forward: https://www.magneticmediajs.com
 Magneticmediajs is a JavaScript and CSS solution to display media content in a stylish mobile-ready overlay fashion. It includes designs for e-commerce, media gallery and also lets you ingest content from today's most popular media platform: Youtube, Instagram, Vimeo, Flickr, Dailymotion. Magneticmediajs is built with a JavaScript pseudo-class model for easier work of extension, jQuery for DOM manipulation and Less CSS3 with progressive enhancement.
 
 ## Features
+
 * Display images, Flickr & Instagram content
 * Display HTML5 (with Flash fallback), Youtube, Vimeo & Dailymotion videos
 * Show locations with Google maps
@@ -19,11 +20,21 @@ Magneticmediajs is a JavaScript and CSS solution to display media content in a s
 * Deeplinking (one item = one URL), social media sharing, error management, multiple instances support
 * Keyboard control
 
+## Install 
+
+### Include files from jsDelivr CDN (see Quick start guide below)
+
+### Bower: `bower install magneticmediajs`
+
+### GitHub: checkout sources or download ZIP package from GitHub
+
+### Checkout or download 
+
 ## Documentation
 
 The full documentation is available [here](https://www.magneticmediajs.com/documentation.html).
 
-###Quick start guide:
+### Quick start guide:
 
 * Include jQuery
 
@@ -31,11 +42,11 @@ The full documentation is available [here](https://www.magneticmediajs.com/docum
 
 * Include Magneticmediajs JavaScript file:
 
-```<script src="//cdn.jsdelivr.net/magneticmediajs/1.3.4/mjs.min.js"></script>```
+```<script src="//cdn.jsdelivr.net/magneticmediajs/1.3.5/mjs.min.js"></script>```
 
 * Include Magneticmediajs CSS file:
 
-```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.3.4/mjs.min.css">```
+```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.3.5/mjs.min.css">```
 
 * Prepare an HTML element, an id or a class to be used with Magneticmediajs
 
