@@ -14,6 +14,7 @@
         "src/css/fonts/mjsfont.ttf",
         "src/css/fonts/mjsfont.woff",
         "src/js/mjs.js",
+        "src/js/swfobject.js",
         "src/flash/StrobeMediaPlayback.swf"
     ],
     "moduleType": [
@@ -35,8 +36,14 @@
     "ignore": [
         "**/.*",
         "node_modules",
+        "dist",
+        "src/img",
+        "src/*.html",
         "bower_components",
         "test",
         "tests"
-    ]
+    ],
+    "dependencies": {
+        "jquery": ">= 2.1.1"        
+    }
 }

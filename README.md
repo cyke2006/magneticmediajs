@@ -16,7 +16,7 @@ Magneticmediajs is a JavaScript and CSS solution to display media content in a s
 * 8 filter effects: sepia, grayscale, invert, brightness, contrast, saturate, blur & hue-rotate
 * Ecommerce and media gallery mobile-ready designs
 * Colorful and easily customizable
-* Deeplinking (each item gets its own URL), error management, multiple instances support
+* Deeplinking (one item = one URL), social media sharing, error management, multiple instances support
 * Keyboard control
 
 ## Documentation
