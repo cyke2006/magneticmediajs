@@ -22,11 +22,17 @@ Magneticmediajs is a JavaScript and CSS solution to display media content in a s
 
 ## Install 
 
-### Include files from jsDelivr CDN (see Quick start guide below)
+### Include files from jsDelivr CDN 
 
-### Bower: `bower install magneticmediajs`
+See Quick start guide below
 
-### GitHub: checkout sources or download ZIP package from GitHub
+### Bower: 
+
+`bower install magneticmediajs`
+
+### GitHub: 
+
+checkout sources or download ZIP package from GitHub
 
 ### Checkout or download 
 
@@ -42,11 +48,11 @@ The full documentation is available [here](https://www.magneticmediajs.com/docum
 
 * Include Magneticmediajs JavaScript file:
 
-```<script src="//cdn.jsdelivr.net/magneticmediajs/1.3.5/mjs.min.js"></script>```
+```<script src="//cdn.jsdelivr.net/magneticmediajs/1.3.4/mjs.min.js"></script>```
 
 * Include Magneticmediajs CSS file:
 
-```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.3.5/mjs.min.css">```
+```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.3.4/mjs.min.css">```
 
 * Prepare an HTML element, an id or a class to be used with Magneticmediajs
 
