@@ -1153,13 +1153,11 @@ var Magneticmediajs = (function () {
         this.loadErrors = 0;
         //cache this
         var thisT = this;
+        this.container = [];
         // Loop for multiple separated elements submitted new Magneticmediajs('#id, .class1' ...);
         for (var i = 0, len = elements.length; i < len; i++) {
-            this.container = [];
             this.container[i] = $.trim(elements[i]);
             var $thisContainer = $(this.container[i]);
-            console.log($($.trim(elements[i])));
-
             if (!gallery) {
                 $thisContainer.attr('tabindex', '0');
             }
