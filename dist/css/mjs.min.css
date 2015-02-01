@@ -1,5 +1,5 @@
 /* 
- * Magneticmediajs 1.3.5 | https://www.magneticmediajs.com
+ * Magneticmediajs 1.4.0 | https://www.magneticmediajs.com
  * Copyright (c) 2014-2015 Arnaud Leyder | Leyder Consulting | https://www.leyder-consulting.com
  * Released under MIT license https://www.magneticmediajs.com/mit-license.html
  * For contact information please visit https://www.magneticmediajs.com/about.html
