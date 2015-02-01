@@ -46,11 +46,11 @@ The full documentation is available [here](https://www.magneticmediajs.com/docum
 
 * Include Magneticmediajs JavaScript file:
 
-```<script src="//cdn.jsdelivr.net/magneticmediajs/1.3.4/mjs.min.js"></script>```
+```<script src="//cdn.jsdelivr.net/magneticmediajs/1.4.0/js/mjs.min.js"></script>```
 
 * Include Magneticmediajs CSS file:
 
-```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.3.4/mjs.min.css">```
+```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.4.0/css/mjs.min.css">```
 
 * Prepare an HTML element, an id or a class to be used with Magneticmediajs
 
