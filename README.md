@@ -42,14 +42,6 @@ The full documentation is available [here](https://www.magneticmediajs.com/docum
 
 #### Quick start guide:
 
-* Include jQuery
-
-```<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>```
-
-* Include Magneticmediajs JavaScript file:
-
-```<script src="//cdn.jsdelivr.net/magneticmediajs/1.4.0/js/mjs.min.js"></script>```
-
 * Include Magneticmediajs CSS file:
 
 ```<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/magneticmediajs/1.4.0/css/mjs.min.css">```
@@ -57,6 +49,18 @@ The full documentation is available [here](https://www.magneticmediajs.com/docum
 * Prepare an HTML element, an id or a class to be used with Magneticmediajs
 
 ```<div id="itemToDisplay">Check This View</div>```
+
+* Include jQuery and all JavaScript files/code just before the closing body tag 
+at the bottom of your page. If you place your scripts somewhere else on your 
+page you will need to wrap magneticmediajs instantiation + initialization 
+in ```$(document).ready()```:
+
+```<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>```
+
+* Include Magneticmediajs JavaScript file:
+
+```<script src="//cdn.jsdelivr.net/magneticmediajs/1.4.0/js/mjs.min.js"></script>```
+
 
 * Adjust settings
 
