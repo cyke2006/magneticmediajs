@@ -1,4 +1,4 @@
-# Magneticmediajs ![GitHub Logo](https://www.magneticmediajs.com/images/logo-magneticmediajs-120.png)
+# Magneticmediajs
 
 How does it look? :arrow_forward: https://www.magneticmediajs.com
 
